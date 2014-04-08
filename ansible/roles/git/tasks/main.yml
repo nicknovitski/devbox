@@ -1,0 +1,38 @@
+---
+  - name: check on build dependencies
+    apt: pkg={{ item }} state=present update_cache=yes
+    sudo: yes
+    with_items:
+      - libcurl4-gnutls-dev
+      - libexpat1-dev
+      - gettext
+      - libz-dev
+      - libssl-dev
+      - libpcre3-dev
+
+  - name: check if we can git
+    command: git --version
+    register: cangit
+    ignore_errors: yes
+
+  - name: add the package for just a sec
+    apt: pkg=git state=present
+    sudo: yes
+    when: cangit|failed
+
+  - name: make directory
+    file: path={{ build }} state=directory
+
+  - name: download source
+    git: repo=git://git.kernel.org/pub/scm/git/git.git dest={{ build}}/git
+    register: gitsource
+
+  - include: build.yml
+    when: gitsource | changed
+
+  - name: copy dotfiles
+    copy: src={{ item }} dest={{ home }}/.{{ item }}
+    with_items:
+      - git_template
+      - gitconfig
+      - gitignore

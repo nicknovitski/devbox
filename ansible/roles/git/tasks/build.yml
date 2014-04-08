@@ -1,0 +1,15 @@
+---
+  - name: remove package
+    apt: pkg=git state=absent
+    sudo: yes
+
+  - name: make
+    command: make prefix=/usr/local all chdir={{ build }}/git
+    environment:
+      USE_LIBPCRE: 1
+
+  - name: make install
+    command: make prefix=/usr/local install chdir={{ build }}/git
+    environment:
+      USE_LIBPCRE: 1
+    sudo: yes

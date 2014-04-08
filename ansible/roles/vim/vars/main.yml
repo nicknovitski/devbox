@@ -1,0 +1,21 @@
+---
+  vim_plugins:
+    - scrooloose/syntastic
+    - scrooloose/nerdtree
+    - tpope/vim-sensible
+    - tpope/vim-dispatch
+    - tpope/vim-fugitive
+    - tpope/vim-repeat
+    - tpope/vim-commentary
+    - tpope/vim-surround
+    - tpope/vim-unimpaired
+    - tpope/vim-eunuch
+    - tpope/vim-rails
+    - tpope/vim-bundler
+    - tpope/vim-abolish
+    - airblade/vim-gitgutter
+    - majutsushi/tagbar
+    - bling/vim-airline
+    - godlygeek/tabular
+    - matze/vim-move
+    - kien/ctrlp.vim

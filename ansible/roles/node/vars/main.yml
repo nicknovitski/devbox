@@ -1,0 +1,10 @@
+---
+  stable: 0.10.26
+  unstable: 0.11.12
+  nodenv_plugins:
+    - OiNutter/node-build
+    - nicknovitski/nodenv-default-packages
+  default_packages:
+    - eslint
+    - yo # also gets bower and grunt-cli
+    - testem

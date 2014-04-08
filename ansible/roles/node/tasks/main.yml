@@ -1,0 +1,15 @@
+---
+  - name: git clone/pull nodenv
+    git: repo=git://github.com/OiNutter/nodenv.git dest={{ home }}/.nodenv force=yes
+
+  - name: install/update nodenv plugins
+    git: repo=git://github.com/{{ item }}.git dest={{ home }}/.nodenv/plugins/{{ item | basename }} force=no
+    with_items: nodenv_plugins
+
+  - name: set default packages
+    lineinfile: dest={{ home }}/.nodenv/default-packages line={{ item }} state=present create=yes
+    with_items: default_packages
+
+  - name: install build-essential # required by node builds
+    apt: pkg=build-essential state=present
+    sudo: yes

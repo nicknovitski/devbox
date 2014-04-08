@@ -1,0 +1,47 @@
+[core]
+excludesfile = ~/.gitignore
+editor = vim
+
+[color]
+branch = auto
+diff = auto
+status = auto
+ui = auto
+grep = auto
+
+[mergetool]
+keepBackup = false
+
+[difftool]
+prompt = false
+
+[alias]
+br = branch
+co = checkout
+ci = commit
+d = diff
+dc = diff --cached
+rb = rebase --interactive
+rbc = rebase --continue
+rba = rebase --abort
+st = status
+praise = blame
+ctags = !.git/hooks/ctags
+
+[apply]
+whitespace = nowarn
+
+[help]
+autocorrect = 1
+
+[merge]
+conflictstyle = diff3
+
+[grep]
+patternType = perl
+
+[init]
+templatedir = ~/.git_template
+
+[push]
+default = simple

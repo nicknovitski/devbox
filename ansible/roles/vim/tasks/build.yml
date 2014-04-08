@@ -1,0 +1,10 @@
+---
+- name: configure
+  command: ./configure --enable-multibyte --with-tlib=ncurses --enable-cscope --with-features=huge --enable-gui=no --without-x --enable-rubyinterp chdir={{ build }}/vim
+
+- name: make
+  command: make chdir={{ build }}/vim
+
+- name: install
+  command: make install chdir={{ build }}/vim
+  sudo: yes

@@ -1,0 +1,23 @@
+---
+  - name: remove system ruby
+    apt: pkg=ruby1.8 state=absent
+    sudo: yes
+
+  - name: install/update rbenv
+    git: repo=https://github.com/sstephenson/rbenv.git dest={{ home }}/.rbenv force=yes
+
+  - name: install/update rbenv plugins
+    git: repo=git://github.com/{{ item }}.git dest={{ home}}/.rbenv/plugins/{{ item | basename }} force=no
+    with_items: rbenv_plugins
+
+  - name: set default gems
+    lineinfile: dest={{ home}}/.rbenv/default-gems line={{ item }} state=present create=yes
+    with_items: default_gems
+
+  - name: install necessary packages
+    apt: pkg={{ item }} state=present
+    sudo: yes
+    with_items:
+      - libssl-dev # required to build ruby
+      - libreadline-dev # required by pry, others
+      - libpq-dev # required by the pg gem

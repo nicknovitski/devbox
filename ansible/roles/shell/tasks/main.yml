@@ -1,0 +1,10 @@
+---
+  - name: install
+    apt: pkg=tmux state=latest
+    sudo: yes
+
+  - name: add .tmux.conf
+    copy: dest={{ home }}/.tmux.conf src=tmux.conf
+
+  - name: add .profile
+    assemble: dest={{ home }}/.profile src=profile remote_src=no

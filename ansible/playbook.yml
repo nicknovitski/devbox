@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: no
+  roles:
+    - git
+    - ruby
+    - node
+    - vim
+    - shell
