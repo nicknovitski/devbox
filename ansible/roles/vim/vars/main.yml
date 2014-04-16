@@ -19,3 +19,4 @@
     - godlygeek/tabular
     - matze/vim-move
     - kien/ctrlp.vim
+    - othree/html5.vim
