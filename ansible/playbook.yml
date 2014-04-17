@@ -4,7 +4,26 @@
   roles:
     - docker
     - git
-    - ruby
     - node
+    - role: ruby
+      global: 2.1.1
+      rbenv_plugins:
+        - tpope/rbenv-ctags
+        - tpope/rbenv-communal-gems
+        - sstephenson/rbenv-gem-rehash
+        - ianheggie/rbenv-binstubs
+        - nicknovitski/rbenv-gem-update
+      default_gems:
+        - gem-ctags
+        - bundler
+        - building
+        - flay
+        - flog
+        - mutant
+        - mutant-rspec
+        - hookup
+        - pry
+        - rubocop
+        - raygun
     - vim
     - shell
