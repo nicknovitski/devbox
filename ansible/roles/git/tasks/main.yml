@@ -1,6 +1,6 @@
 ---
   - name: check on build dependencies
-    apt: pkg={{ item }} state=present update_cache=yes
+    apt: pkg={{ item }} state=present
     sudo: yes
     with_items:
       - libcurl4-gnutls-dev
@@ -20,11 +20,8 @@
     sudo: yes
     when: cangit|failed
 
-  - name: make directory
-    file: path={{ build }} state=directory
-
   - name: download source
-    git: repo=git://git.kernel.org/pub/scm/git/git.git dest={{ build}}/git
+    git: repo=git://git.kernel.org/pub/scm/git/git.git dest={{ build }}/git
     register: gitsource
 
   - include: build.yml

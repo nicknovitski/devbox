@@ -3,6 +3,10 @@
     apt: pkg=git state=absent
     sudo: yes
 
+  - name: make sure we can make with the package 'make'
+    apt: pkg=make state=present
+    sudo: yes
+
   - name: make
     command: make prefix=/usr/local all chdir={{ build }}/git
     environment:
