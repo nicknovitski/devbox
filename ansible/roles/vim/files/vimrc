@@ -32,10 +32,19 @@ nmap Y y$
 " recognize .md files as markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 
-" Support different cursor in insert mode.
+" if our terminal supports escape sequences
 if &term == "screen-256color"
-  let &t_SI = "\<Esc>[3 q"
+  " set the insert mode cursor to a blinking vertical bar
+  let &t_SI = "\<Esc>[5 q"
+  " in other modes, set the cursor to a blinking block
   let &t_EI = "\<Esc>[0 q"
+
+  " 1 or 0 -> blinking block
+  " 2 -> solid block
+  " 3 -> blinking underscore
+  " 4 -> solid underscore
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
 endif
 
 " enable rubocop
