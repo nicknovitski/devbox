@@ -4,7 +4,6 @@
   roles:
     - docker
     - git
-    - node
     - role: ruby
       global: 2.1.1
       rbenv_plugins:
@@ -25,6 +24,9 @@
         - pry
         - rubocop
         - raygun
+    - role: node
+      global: 0.10.26
+      default_packages: [ eslint, yo, testem ]
     - clojure
     - vim
     - shell

@@ -1,16 +1,32 @@
 ---
-  - name: git clone/pull nodenv
+  - name: install/update nodenv
     git: repo=git://github.com/OiNutter/nodenv.git dest={{ home }}/.nodenv force=yes
 
-  - name: install/update nodenv plugins
-    git: repo=git://github.com/{{ item }}.git dest={{ home }}/.nodenv/plugins/{{ item | basename }} force=no
-    with_items: nodenv_plugins
-    ignore_errors: yes
+  - name: install/update node-build
+    git: >
+      repo=git://github.com/OiNutter/node-build.git
+      dest={{ home }}/.nodenv/plugins/node-build.git
+      force=no
+
+  - name: install/update nodenv default-packages
+    when: default_packages is defined
+    git: >
+      repo=git://github.com/nicknovitski/nodenv-default-packages.git
+      dest={{ home }}/.nodenv/plugins/nodenv-default-packages.git
 
   - name: set default packages
+    when: default_packages is defined
     lineinfile: dest={{ home }}/.nodenv/default-packages line={{ item }} state=present create=yes
     with_items: default_packages
 
   - name: install build-essential # required by node builds
     apt: pkg=build-essential state=present
     sudo: yes
+
+  - name: install global node version
+    when: global is defined
+    command: "{{ home }}/.nodenv/bin/nodenv install {{ global }} creates={{ home }}/.nodenv/versions/{{ global }}"
+
+  - name: set global node version
+    when: global is defined
+    command: "{{ home }}/.nodenv/bin/nodenv global {{ global }}"
