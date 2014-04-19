@@ -8,6 +8,7 @@
   - name: install/update rbenv plugins
     git: repo=git://github.com/{{ item }}.git dest={{ home }}/.rbenv/plugins/{{ item | basename }} force=no
     with_items: rbenv_plugins
+    ignore_errors: yes
 
   - name: install/update rbenv-default-gems
     when:  default_gems is defined

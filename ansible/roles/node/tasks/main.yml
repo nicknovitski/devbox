@@ -5,6 +5,7 @@
   - name: install/update nodenv plugins
     git: repo=git://github.com/{{ item }}.git dest={{ home }}/.nodenv/plugins/{{ item | basename }} force=no
     with_items: nodenv_plugins
+    ignore_errors: yes
 
   - name: set default packages
     lineinfile: dest={{ home }}/.nodenv/default-packages line={{ item }} state=present create=yes
