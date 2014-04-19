@@ -8,12 +8,10 @@
     sudo: yes
 
   - name: Add Docker repository
-    apt_repository:
-      repo: 'deb http://get.docker.io/ubuntu docker main'
-      update_cache: yes
+    apt_repository: repo='deb http://get.docker.io/ubuntu docker main' update_cache=yes
     sudo: yes
 
   - name: Install Docker
-    apt: pkg=lxc-docker
+    apt: pkg=lxc-docker state=latest
     notify: "Start Docker"
     sudo: yes
