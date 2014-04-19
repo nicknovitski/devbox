@@ -25,5 +25,6 @@
         - pry
         - rubocop
         - raygun
+    - clojure
     - vim
     - shell

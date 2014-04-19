@@ -1,0 +1,17 @@
+---
+  - name: get java
+    apt: pkg=openjdk-7-jdk state=latest
+    sudo: yes
+
+  - name: make bin dir
+    file: path={{ home }}/bin state=directory
+
+  - name: download leiningen script
+    get_url: >
+      url=https://raw.github.com/technomancy/leiningen/stable/bin/lein
+      dest={{ home }}/bin/lein
+      mode=755
+      force=yes
+
+  - name: install/upgrade leiningen
+    shell: yes | {{ home }}/bin/lein upgrade
