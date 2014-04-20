@@ -27,6 +27,7 @@
     - role: node
       global: 0.10.26
       default_packages: [ eslint, yo, testem ]
+    - python
     - clojure
     - vim
     - shell

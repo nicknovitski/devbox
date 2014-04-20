@@ -1,0 +1,15 @@
+---
+  - name: install or update pyenv
+    git: >
+      repo=git://github.com/yyuu/pyenv.git
+      dest={{ home }}/.pyenv
+
+  - name: install global python version
+    when: global is defined
+    command: >
+      "{{ home }}/.pyenv/bin/pyenv install {{ global }}"
+      creates={{ home }}/.pyenv/versions/{{ global }}
+
+  - name: set global python version
+    when: global is defined
+    command: "{{ home }}/.pyenv/bin/pyenv global {{ global }}"
