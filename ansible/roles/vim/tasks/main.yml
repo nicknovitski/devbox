@@ -10,6 +10,8 @@
     - mercurial # scm we pull with
     - libncurses5-dev #  --with-tlib=ncurses
     - ruby-dev # --enable-rubyinterp
+    - python-dev # --enable-pythoninterp
+    - python3-dev # --enable-python3interp
 
 - name: clone vim
   hg: dest={{ build }}/vim repo=https://vim.googlecode.com/hg/ force=no
