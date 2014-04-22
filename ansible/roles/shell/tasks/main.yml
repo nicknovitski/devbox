@@ -1,6 +1,32 @@
 ---
-  - name: install
-    apt: pkg=tmux state=latest
+  - name: get rid of tmux package
+    apt: pkg=tmux state=absent
+    sudo: yes
+
+  - name: install tmux build dependencies
+    apt: pkg={{ item }} state=latest
+    sudo: yes
+    with_items:
+      - automake
+      - libevent-dev
+      - libncurses5-dev
+
+  - name: get tmux source
+    git: repo=git://git.code.sf.net/p/tmux/tmux-code dest={{ build }}/tmux
+    register: tmux_source
+
+  - name: build tmux
+    when: tmux_source | changed
+    command: "{{ item }} chdir={{ build }}/tmux"
+    with_items:
+      - sh autogen.sh
+      - ./configure
+      - make
+    register: tmux_build
+
+  - name: install tmux binary
+    when: tmux_build | changed
+    command: mv -f {{ build }}/tmux/tmux /usr/bin/tmux
     sudo: yes
 
   - name: add .tmux.conf
