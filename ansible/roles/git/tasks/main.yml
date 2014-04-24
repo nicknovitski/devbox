@@ -27,11 +27,13 @@
   - include: build.yml
     when: gitsource | changed
 
+  - name: template gitconfig
+    template: src=gitconfig dest={{ home }}/.gitconfig
+
   - name: copy dotfiles
     copy: src={{ item }} dest={{ home }}/.{{ item }}
     with_items:
       - git_template
-      - gitconfig
       - gitignore
 
   - name: copy ssh config
