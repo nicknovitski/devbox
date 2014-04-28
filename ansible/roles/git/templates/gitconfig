@@ -4,7 +4,6 @@ email = {{ email }}
 
 [core]
 excludesfile = ~/.gitignore
-editor = vim
 
 [color]
 branch = auto
