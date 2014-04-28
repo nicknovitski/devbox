@@ -2,10 +2,20 @@
   - name: install/update rbenv
     git: repo=git://github.com/sstephenson/rbenv.git dest={{ home }}/.rbenv
 
-  - name: install/update ruby-build
-    git: repo=git://github.com/sstephenson/ruby-build.git dest={{ home }}/.rbenv/plugins/ruby-build
+  - name: install/update default rbenv plugins
+    git: repo=git://github.com/{{ item }}.git dest={{ home }}/.rbenv/plugins/{{ item | basename }} force=no
+    with_items:
+      - sstephenson/ruby-build
+      - ianheggie/rbenv-binstubs
 
-  - name: install/update rbenv plugins
+  - name: configure bundler binstubs
+    lineinfile: >
+      'line=BUNDLE_BIN: .bundle/bin'
+      dest={{ home }}/.bundle/config
+      state=present
+      create=yes
+
+  - name: install/update extra rbenv plugins
     git: repo=git://github.com/{{ item }}.git dest={{ home }}/.rbenv/plugins/{{ item | basename }} force=no
     with_items: rbenv_plugins
     ignore_errors: yes

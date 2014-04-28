@@ -10,7 +10,6 @@
         - tpope/rbenv-ctags
         - tpope/rbenv-communal-gems
         - sstephenson/rbenv-gem-rehash
-        - ianheggie/rbenv-binstubs
         - nicknovitski/rbenv-gem-update
       default_gems:
         - gem-ctags
