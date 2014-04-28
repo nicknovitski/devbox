@@ -1,3 +1,7 @@
+[user]
+name = {{ name }}
+email = {{ email }}
+
 [core]
 excludesfile = ~/.gitignore
 editor = vim

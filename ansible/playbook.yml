@@ -3,7 +3,7 @@
   gather_facts: no
   roles:
     - docker
-    - git
+    - { role: git, name: Nick Novitski, email: nicknovitski@gmail.com }
     - role: ruby
       global: 2.1.1
       rbenv_plugins:
