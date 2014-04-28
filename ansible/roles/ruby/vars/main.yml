@@ -1,0 +1,5 @@
+---
+  default_rbenv_plugins:
+    - sstephenson/ruby-build
+    - ianheggie/rbenv-binstubs
+    - sstephenson/rbenv-gem-rehash

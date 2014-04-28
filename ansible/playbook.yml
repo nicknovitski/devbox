@@ -9,7 +9,6 @@
       rbenv_plugins:
         - tpope/rbenv-ctags
         - tpope/rbenv-communal-gems
-        - sstephenson/rbenv-gem-rehash
         - nicknovitski/rbenv-gem-update
       default_gems:
         - gem-ctags
