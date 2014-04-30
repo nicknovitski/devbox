@@ -40,3 +40,6 @@
 
 - name: install .vimrc
   copy: dest={{ home }}/.vimrc src=vimrc
+
+- name: copy ftplugin directory
+  copy: dest={{ home }}/.vim src=ftplugin
