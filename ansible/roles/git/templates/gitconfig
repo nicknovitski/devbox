@@ -34,6 +34,9 @@ ctags = !.git/hooks/ctags
 [apply]
 whitespace = nowarn
 
+[pull]
+ff = only
+
 [help]
 autocorrect = 1
 
