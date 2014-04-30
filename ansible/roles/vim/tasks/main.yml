@@ -18,19 +18,16 @@
   register: vim_repo
 
 - include: build.yml
-  when: vim_repo|changed
+  when: vim_repo | changed
 
 - name: create .vim subdirectories
   file: path={{ home }}/.vim/{{ item }} state=directory
-  with_items:
-    - autoload
-    - bundle
-    - colors
+  with_items: [autoload, bundle]
 
 - name: install pathogen
   get_url: dest={{ home }}/.vim/autoload/ url=https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
-- name: install vim plugins
+- name: install plugins
   git: repo=git://github.com/{{ item }}.git dest={{ home }}/.vim/bundle/{{ item | basename }}
   with_items: vim_plugins
   ignore_errors: yes

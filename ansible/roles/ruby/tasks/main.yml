@@ -1,49 +1,49 @@
 ---
-  - name: install/update rbenv
-    git: repo=git://github.com/sstephenson/rbenv.git dest={{ home }}/.rbenv
+- name: install/update rbenv
+  git: repo=git://github.com/sstephenson/rbenv.git dest={{ home }}/.rbenv
 
-  - name: install/update rbenv plugins
-    git: repo=git://github.com/{{ item }}.git dest={{ home }}/.rbenv/plugins/{{ item | basename }} force=no
-    with_items: default_rbenv_plugins | union(rbenv_plugins)
-    ignore_errors: yes
+- name: install/update rbenv plugins
+  git: repo=git://github.com/{{ item }}.git dest={{ home }}/.rbenv/plugins/{{ item | basename }} force=no
+  with_items: default_rbenv_plugins | union(rbenv_plugins)
+  ignore_errors: yes
 
-  - name: configure bundler binstubs
-    lineinfile: >
-      'line=BUNDLE_BIN: .bundle/bin'
-      dest={{ home }}/.bundle/config
-      state=present
-      create=yes
+- name: configure bundler binstubs
+  lineinfile: >
+    'line=BUNDLE_BIN: .bundle/bin'
+    dest={{ home }}/.bundle/config
+    state=present
+    create=yes
 
-  - name: install/update rbenv-default-gems
-    when:  default_gems is defined
-    git: repo=git://github.com/sstephenson/rbenv-default-gems.git dest={{ home }}/.rbenv/plugins/rbenv-default-gems force=no
+- name: install/update rbenv-default-gems
+  when:  default_gems is defined
+  git: repo=git://github.com/sstephenson/rbenv-default-gems.git dest={{ home }}/.rbenv/plugins/rbenv-default-gems force=no
 
-  - name: set default gems
-    lineinfile: dest={{ home }}/.rbenv/default-gems line={{ item }} state=present create=yes
-    with_items: default_gems
+- name: set default gems
+  lineinfile: dest={{ home }}/.rbenv/default-gems line={{ item }} state=present create=yes
+  with_items: default_gems
 
-  - name: install packages for build
-    apt: pkg={{ item }} state=present
-    sudo: yes
-    with_items:
-      - libssl-dev
-      - libreadline-dev
-      - libpq-dev # required by the pg gem
+- name: install packages for build
+  apt: pkg={{ item }} state=present
+  sudo: yes
+  with_items:
+    - libssl-dev
+    - libreadline-dev
+    - libpq-dev # required by the pg gem
 
-  - name: transfer 2.1.1 readline patch
-    when: global == '2.1.1'
-    copy: src=readline.patch dest=/tmp/
+- name: transfer 2.1.1 readline patch
+  when: global == '2.1.1'
+  copy: src=readline.patch dest=/tmp/
 
-  - name: install ruby 2.1.1
-    when: global == '2.1.1'
-    shell:
-      cat /tmp/readline.patch | {{ home }}/.rbenv/bin/rbenv install --patch 2.1.1
-      creates={{ home }}/.rbenv/versions/2.1.1
+- name: install ruby 2.1.1
+  when: global == '2.1.1'
+  shell:
+    cat /tmp/readline.patch | {{ home }}/.rbenv/bin/rbenv install --patch 2.1.1
+    creates={{ home }}/.rbenv/versions/2.1.1
 
-  - name: install global ruby
-    when: global is defined
-    command: "{{ home }}/.rbenv/bin/rbenv install --patch {{ global }} creates={{ home }}/.rbenv/versions/{{ global }}"
+- name: install global ruby
+  when: global is defined
+  command: "{{ home }}/.rbenv/bin/rbenv install --patch {{ global }} creates={{ home }}/.rbenv/versions/{{ global }}"
 
-  - name: set global ruby
-    when: global is defined
-    command: "{{ home }}/.rbenv/bin/rbenv global {{ global }}"
+- name: set global ruby
+  when: global is defined
+  command: "{{ home }}/.rbenv/bin/rbenv global {{ global }}"
