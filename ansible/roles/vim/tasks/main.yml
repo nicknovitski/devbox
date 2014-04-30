@@ -32,9 +32,6 @@
   with_items: vim_plugins
   ignore_errors: yes
 
-- name: install molokai
-  get_url: dest={{ home }}/.vim/colors/ url=https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-
 - name: install .vimrc
   copy: dest={{ home }}/.vimrc src=vimrc
 

@@ -12,7 +12,7 @@ set autoindent
 
 " Colors
 colorscheme molokai
-set background=dark
+let g:rehash256 = 1
 
 " activate mouse in all modes
 set mouse=a
