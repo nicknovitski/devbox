@@ -1,3 +1,6 @@
+" Disable compatibility with vi
+set nocompatible
+
 " activate pathogen plugin manager
 execute pathogen#infect()
 
