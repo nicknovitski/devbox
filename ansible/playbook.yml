@@ -35,5 +35,16 @@
       default_packages: [ eslint, yo, testem ]
     - python
     - clojure
-    - vim
+    - role: vim
+      plugins:
+        - scrooloose/nerdtree
+        - tpope/vim-fugitive
+        - tpope/vim-dispatch
+        - tpope/vim-rails
+        - tpope/vim-bundler
+        - majutsushi/tagbar
+        - godlygeek/tabular
+        - matze/vim-move
+        - othree/html5.vim
+        - tomasr/molokai
     - shell

@@ -29,7 +29,7 @@
 
 - name: install plugins
   git: repo=git://github.com/{{ item }}.git dest={{ home }}/.vim/bundle/{{ item | basename }}
-  with_items: vim_plugins
+  with_items: included_plugins | union(plugins | default([]))
   ignore_errors: yes
 
 - name: install .vimrc
