@@ -1,6 +1,14 @@
 ---
 - hosts: all
   gather_facts: no
+  pre_tasks:
+    - name: make sshd faster
+      lineinfile: dest=/etc/ssh/sshd_config line={{ item }} state=present
+      sudo: yes
+      with_items:
+        - "'UseDNS no'"
+        - "'GSSAPIAuthentication no'"
+      notify: restart sshd
   roles:
     - docker
     - { role: git, name: Nick Novitski, email: nicknovitski@gmail.com }
