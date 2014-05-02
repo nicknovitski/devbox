@@ -47,4 +47,4 @@
         - matze/vim-move
         - othree/html5.vim
         - tomasr/molokai
-    - shell
+    - tmux
