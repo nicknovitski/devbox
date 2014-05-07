@@ -43,3 +43,9 @@
 
 - name: copy vim.sh
   copy: src=vim.sh dest={{ dotfiles }}/vim/vim.sh
+
+- name: add Vim.gitignore
+  get_url: >
+    dest={{ dotfiles }}/vim/
+    url=https://raw.githubusercontent.com/github/gitignore/master/Global/vim.gitignore
+  notify: build .gitignore

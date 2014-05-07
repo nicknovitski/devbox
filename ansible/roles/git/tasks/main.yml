@@ -34,7 +34,6 @@
     copy: src={{ item }} dest={{ home }}/.{{ item }}
     with_items:
       - git_template
-      - gitignore
 
   - name: make dotfiles directory
     file: path={{ dotfiles }}/git state=directory recurse=yes
@@ -42,6 +41,11 @@
   - name: copy git.sh
     copy: src=git.sh dest={{ dotfiles }}/git/git.sh
     notify: build .profile
+
+  - name: copy basic linux gitignore
+    get_url: >
+      dest={{ dotfiles }}/git/
+      url=https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
 
   - name: copy ssh config
     copy: src=ssh_config dest={{ home }}/.ssh/config
