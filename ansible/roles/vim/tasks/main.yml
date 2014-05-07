@@ -37,3 +37,9 @@
 
 - name: copy ftplugin directory
   copy: dest={{ home }}/.vim src=ftplugin
+
+- name: make dotfiles directory
+  file: path={{ dotfiles }}/vim state=directory recurse=yes
+
+- name: copy vim.sh
+  copy: src=vim.sh dest={{ dotfiles }}/vim/vim.sh

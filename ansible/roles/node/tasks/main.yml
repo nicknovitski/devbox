@@ -2,6 +2,13 @@
   - name: install/update nodenv
     git: repo=git://github.com/OiNutter/nodenv.git dest={{ home }}/.nodenv force=yes
 
+  - name: make dotfiles directory
+    file: path={{ dotfiles }}/node state=directory recurse=yes
+
+  - name: copy nodenv.sh
+    copy: src=nodenv.sh dest={{ dotfiles }}/node/nodenv.sh
+    notify: build .profile
+
   - name: install/update node-build
     git: >
       repo=git://github.com/OiNutter/node-build.git

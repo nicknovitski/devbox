@@ -4,6 +4,13 @@
       repo=git://github.com/yyuu/pyenv.git
       dest={{ home }}/.pyenv
 
+  - name: make dotfiles directory
+    file: path={{ dotfiles }}/python state=directory recurse=yes
+
+  - name: copy pyenv.esh
+    copy: src=pyenv.sh dest={{ dotfiles }}/python/pyenv.sh
+    notify: build .profile
+
   - name: install global python version
     when: global is defined
     command: >

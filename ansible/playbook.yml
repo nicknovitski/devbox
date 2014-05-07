@@ -48,3 +48,4 @@
         - othree/html5.vim
         - tomasr/molokai
     - tmux
+    - bash

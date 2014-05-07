@@ -2,6 +2,13 @@
 - name: install/update rbenv
   git: repo=git://github.com/sstephenson/rbenv.git dest={{ home }}/.rbenv
 
+- name: make dotfiles directory
+  file: path={{ dotfiles }}/ruby state=directory recurse=yes
+
+- name: add rbenv.sh
+  copy: src=rbenv.sh dest={{ dotfiles }}/ruby/rbenv.sh
+  notify: build .profile
+
 - name: install/update rbenv plugins
   git: repo=git://github.com/{{ item }}.git dest={{ home }}/.rbenv/plugins/{{ item | basename }} force=no
   with_items: default_rbenv_plugins | union(rbenv_plugins)

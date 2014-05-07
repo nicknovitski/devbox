@@ -1,0 +1,7 @@
+---
+- name: create dotfiles directory
+  file: path={{ dotfiles }}/bash state=directory recurse=yes
+
+- name: copy basic profile
+  copy: src=profile dest={{ dotfiles }}/bash/profile
+  notify: build .profile

@@ -32,5 +32,9 @@
   - name: add .tmux.conf
     copy: dest={{ home }}/.tmux.conf src=tmux.conf
 
-  - name: add .profile
-    assemble: dest={{ home }}/.profile src=profile remote_src=no
+  - name: make dotfiles directory
+    file: path={{ dotfiles }}/tmux state=directory recurse=yes
+
+  - name: add tmux dotfiles
+    copy: dest={{ dotfiles }}/tmux/tmux.sh src=tmux.sh
+    notify: build .profile
