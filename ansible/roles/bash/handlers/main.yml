@@ -1,3 +1,0 @@
----
-- name: build .profile
-  shell: cat {{ dotfiles }}/bash/profile {{ dotfiles }}/**/*.sh > {{ home }}/.profile

@@ -1,6 +1,0 @@
-Host *
-  GSSAPIAuthentication no
-  GSSAPIDelegateCredentials yes
-  ControlMaster auto
-  ControlPath /tmp/%r@%h:%p
-  ControlPersist yes

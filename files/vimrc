@@ -1,0 +1,25 @@
+" Disable compatibility with vi
+set nocompatible
+
+" activate pathogen plugin manager
+execute pathogen#infect()
+
+" activate mouse in all modes
+set mouse=a
+
+" show some invisible characters
+set list
+
+" map semicolon to colon
+" That way you dont need to hold Shift to enter cmdline mode
+map ; :
+
+" map `Y` to yank to the end of the line
+" You can still yank the entire line with `yy`
+nmap Y y$
+
+" recognize .md files as markdown
+au BufRead,BufNewFile *.md set filetype=markdown
+
+" enable rubocop
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']

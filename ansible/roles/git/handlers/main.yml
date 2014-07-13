@@ -1,3 +1,0 @@
----
-- name: build .gitignore
-  shell: cat {{ dotfiles }}/**/*.gitignore > {{ home }}/.gitignore
