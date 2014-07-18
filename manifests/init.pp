@@ -272,6 +272,12 @@ class tmux {
     ensure => present,
     owner  => 'vagrant',
   }
+  file { '~/.ssh/rc':
+    ensure => present,
+    owner  => 'vagrant',
+    path    => '/home/vagrant/.ssh/rc',
+    source => '/vagrant/files/ssh_rc',
+  }
 }
 
 define tmux::conf($source = $title) {
