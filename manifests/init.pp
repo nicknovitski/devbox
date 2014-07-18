@@ -21,6 +21,13 @@ class vim {
   }
 }
 
+define vim::bundle () {
+  $github = split($title, '/')
+  github::checkout { $title:
+    path => "/home/vagrant/.vim/bundle/${github[1]}",
+  }
+}
+
 define vim::ftplugin($source = '', $content = file($source)) {
   file { "ftplugin/${name}.vim":
     require => File['ftplugin'],
@@ -38,7 +45,7 @@ define vim::rc($source = '', $content = file($source)) {
 }
 
 define vim::colorscheme($repo, $vimrc = '') {
-  pathogen::plugin { $repo: }
+  vim::bundle { $repo: }
   vim::rc { 'hold':
     content => "\" Colors\n${vimrc}\ncolorscheme ${name}"
   }
@@ -46,13 +53,6 @@ define vim::colorscheme($repo, $vimrc = '') {
 
 class pathogen {
   github::checkout { 'tpope/vim-pathogen': path => '/home/vagrant/.vim' }
-}
-
-define pathogen::plugin () {
-  $bundle = split($title, '/')
-  github::checkout { $title:
-    path => "/home/vagrant/.vim/bundle/${bundle[1]}",
-  }
 }
 
 define github::checkout($path) {
@@ -317,7 +317,7 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1",
   }
   include pathogen
-  pathogen::plugin { [
+  vim::bundle { [
     'airblade/vim-gitgutter',
     'bling/vim-airline',
     'godlygeek/tabular',
@@ -348,7 +348,7 @@ let g:solarized_termtrans=1",
     source => '/vagrant/files/ruby.vim',
   }
   include rbenv
-  pathogen::plugin { 'tpope/vim-rbenv': }
+  vim::bundle { 'tpope/vim-rbenv': }
   include rbenv::ruby-build
   rbenv::plugin { [
     'ianheggie/rbenv-binstubs',
