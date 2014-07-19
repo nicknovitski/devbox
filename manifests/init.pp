@@ -77,8 +77,6 @@ class git {
     'rba': command     => 'rebase --abort';
     'st': command      => 'status';
     'dc': command      => 'diff --cached';
-    'extract': command => 'filter-branch --prune-empty --subdirectory-filter';
-    'praise': command  => 'blame';
   }
   git::config::color { [
     'branch',
@@ -304,6 +302,13 @@ node default {
 
   include git
   git::user { 'Nick Novitski': email => 'nicknovitski@gmail.com' }
+  git::alias {
+    'praise': command  => 'blame';
+    'extract':
+      command => 'filter-branch --prune-empty --subdirectory-filter';
+    'grep-sed': # search-and-replace
+      command=> '!sh -c \'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"\' -';
+  }
 
   include vim
   profile::line { 'export EDITOR=vim': }
