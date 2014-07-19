@@ -11,7 +11,7 @@ class vim {
   }
   git::ignore { 'vim':
     ignore => [
-      '[a-w][a-z]',
+      '[._]*.s[a-w][a-z]',
       '[._]s[a-w][a-z]',
       '*.un~',
       'Session.vim',
