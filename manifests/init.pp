@@ -137,9 +137,10 @@ class git {
 }
 
 define git::ignore($ignore) {
+  $lines = join($ignore, "\n")
   concat::fragment { "~/gitignore :: ${title}":
     target  => '/home/vagrant/.gitignore',
-    content => join($ignore, "\n"),
+    content => "# ${title}\n${lines}\n"
   }
 }
 
