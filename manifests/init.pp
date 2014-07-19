@@ -68,6 +68,7 @@ define github::checkout($path) {
 
 class git {
   package { 'git': }
+  include git::template
   git::alias {
     'ci': command      => 'commit';
     'co': command      => 'checkout';
@@ -181,6 +182,50 @@ define git::user($email) {
     setting => 'email',
     value   => $email,
   }
+}
+
+class git::template {
+  git::config { 'set template dir':
+    section => 'init',
+    setting => 'templatedir',
+    value   => '~/.git_template',
+  }
+  file { '~/.git_template':
+    ensure => directory,
+    path   => '/home/vagrant/.git_template',
+    owner  => 'vagrant',
+  }
+  file { '~/.git_template/hooks':
+    ensure  => directory,
+    require => File['~/.git_template'],
+    path    => '/home/vagrant/.git_template/hooks',
+    owner   => 'vagrant',
+  }
+}
+
+define git::hook($source = '', $content = file($source)) {
+  file { "~/.git_template/hooks/${title}":
+    ensure  => present,
+    require => File['~/.git_template/hooks'],
+    path    => "/home/vagrant/.git_template/hooks/${title}",
+    mode    => 772,
+    owner   => 'vagrant',
+    content  => $content,
+  }
+}
+
+class git::ctags {
+  #http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
+  $exec_ctags = "#!/bin/sh\n.git/hooks/ctags >/dev/null 2>&1 &"
+  git::hook {
+    'ctags': source => '/vagrant/files/git_ctags';
+    'post-commit': content => $exec_ctags;
+    'post-merge': content => $exec_ctags;
+    'post-checkout': content => $exec_ctags;
+    'post-rewrite': source => '/vagrant/files/git_post-rewrite';
+  }
+  git::alias { 'ctags': command => '!.git/hooks/ctags' }
+  git::ignore { 'ctags': ignore => ['tags'] }
 }
 
 class profile {
@@ -393,6 +438,7 @@ let g:solarized_termtrans=1",
   }
 
   package { 'ctags': }
+  include git::ctags
 
   # node
   include nodenv
