@@ -4,6 +4,9 @@ set nocompatible
 " activate pathogen plugin manager
 execute pathogen#infect()
 
+" generate helptags for every plugin
+Helptags
+
 " activate mouse in all modes
 set mouse=a
 
