@@ -184,6 +184,10 @@ define git::user($email) {
   }
 }
 
+class git::prompt {
+  profile::section { '/vagrant/files/enable-git-prompt.sh': }
+}
+
 class git::template {
   git::config { 'set template dir':
     section => 'init',
@@ -362,6 +366,7 @@ node default {
   include docker
 
   include git
+  include git::prompt
   git::user { 'Nick Novitski': email => 'nicknovitski@gmail.com' }
   git::alias {
     'praise': command  => 'blame';
