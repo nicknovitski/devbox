@@ -130,11 +130,6 @@ class git {
     setting => 'ff',
     value   => 'only',
   }
-  git::config { 'autocorrect obvious misspelt commands':
-    section => 'help',
-    setting => 'autocorrect',
-    value   => '1',
-  }
 }
 
 define git::ignore($ignore) {
