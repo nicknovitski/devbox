@@ -324,6 +324,18 @@ class tmux {
   }
 }
 
+class tmux::mouse {
+  tmux::conf { '/vagrant/files/tmux_mouse.conf': }
+}
+
+class tmux::solarized {
+  tmux::conf { '/vagrant/files/tmux_solarized.conf': }
+}
+
+class tmux::vim {
+  tmux::conf { '/vagrant/files/tmux_vim.conf': }
+}
+
 define tmux::conf($source = $title) {
   concat::fragment { "add ${source} to ~/.tmux.conf":
     target => '/home/vagrant/.tmux.conf',
@@ -338,8 +350,11 @@ class tmux::default-shell {
 node default {
   include profile
   include tmux
+  include tmux::mouse
   include tmux::default-shell
   tmux::conf { '/vagrant/files/tmux.conf': }
+  include tmux::solarized
+  include tmux::vim
   vim::rc { 'cool tmux cursors':
     source => '/vagrant/files/tmux.vim',
   }
