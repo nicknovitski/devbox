@@ -364,6 +364,7 @@ class tmux::default-shell {
 }
 
 node default {
+  exec { 'yes | pacman -Syu': timeout => 0 }
   include profile
   include tmux
   include tmux::mouse
