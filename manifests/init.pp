@@ -1,6 +1,9 @@
-class vim {
+class vim($plugins = []) {
   package { 'vim': }
+  class { 'vim::pathogen': }
+  vim::bundle { $plugins: }
   file { 'ftplugin':
+    require => Class['vim::pathogen'],
     ensure => directory,
     path   => '/home/vagrant/.vim/ftplugin',
     owner  => 'vagrant',
@@ -22,6 +25,7 @@ class vim {
 }
 
 define vim::bundle () {
+  require vim::pathogen
   $github = split($title, '/')
   github::checkout { $title:
     path => "/home/vagrant/.vim/bundle/${github[1]}",
@@ -51,7 +55,7 @@ define vim::colorscheme($repo, $vimrc = '') {
   }
 }
 
-class pathogen {
+class vim::pathogen {
   github::checkout { 'tpope/vim-pathogen': path => '/home/vagrant/.vim' }
 }
 
@@ -371,7 +375,34 @@ node default {
       command=> '!sh -c \'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"\' -';
   }
 
-  include vim
+  class { 'vim': 
+    plugins => [
+      'airblade/vim-gitgutter',
+      'bling/vim-airline',
+      'godlygeek/tabular',
+      'kien/ctrlp.vim',
+      'majutsushi/tagbar',
+      'matze/vim-move',
+      'othree/html5.vim',
+      'rodjek/vim-puppet',
+      'scrooloose/syntastic',
+      'tpope/vim-abolish',
+      'tpope/vim-bundler',
+      'tpope/vim-commentary',
+      'tpope/vim-dispatch',
+      'tpope/vim-endwise',
+      'tpope/vim-eunuch',
+      'tpope/vim-fugitive',
+      'tpope/vim-repeat',
+      'tpope/vim-rails',
+      'tpope/vim-rake',
+      'tpope/vim-sensible',
+      'tpope/vim-surround',
+      'tpope/vim-tbone',
+      'tpope/vim-unimpaired',
+      'tpope/vim-vinegar',
+    ],
+  }
   profile::line { 'export EDITOR=vim': }
   vim::rc { 'common settings':
     source => '/vagrant/files/vimrc',
@@ -382,33 +413,6 @@ node default {
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1",
   }
-  include pathogen
-  vim::bundle { [
-    'airblade/vim-gitgutter',
-    'bling/vim-airline',
-    'godlygeek/tabular',
-    'kien/ctrlp.vim',
-    'majutsushi/tagbar',
-    'matze/vim-move',
-    'othree/html5.vim',
-    'rodjek/vim-puppet',
-    'scrooloose/syntastic',
-    'tpope/vim-abolish',
-    'tpope/vim-bundler',
-    'tpope/vim-commentary',
-    'tpope/vim-dispatch',
-    'tpope/vim-endwise',
-    'tpope/vim-eunuch',
-    'tpope/vim-fugitive',
-    'tpope/vim-repeat',
-    'tpope/vim-rails',
-    'tpope/vim-rake',
-    'tpope/vim-sensible',
-    'tpope/vim-surround',
-    'tpope/vim-tbone',
-    'tpope/vim-unimpaired',
-    'tpope/vim-vinegar',
-  ]: }
 
   # ruby
   vim::ftplugin { 'ruby':
