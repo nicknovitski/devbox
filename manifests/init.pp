@@ -1,3 +1,25 @@
+File {
+  owner => 'vagrant',
+}
+
+Vcsrepo {
+  owner    => 'vagrant',
+  provider => git,
+}
+
+Exec {
+  path => [
+    '/usr/bin',
+    '/bin',
+    '/usr/sbin',
+    '/sbin'
+  ],
+}
+
+Package {
+  ensure => latest
+}
+
 class vim($plugins = []) {
   package { 'vim': }
   class { 'vim::pathogen': }
@@ -6,7 +28,6 @@ class vim($plugins = []) {
     require => Class['vim::pathogen'],
     ensure => directory,
     path   => '/home/vagrant/.vim/ftplugin',
-    owner  => 'vagrant',
   }
   concat { '/home/vagrant/.vimrc':
     ensure => present,
@@ -36,7 +57,6 @@ define vim::ftplugin($source = '', $content = file($source)) {
   file { "ftplugin/${name}.vim":
     require => File['ftplugin'],
     path    => "/home/vagrant/.vim/ftplugin/${name}.vim",
-    owner   => 'vagrant',
     content => $content,
   }
 }
@@ -63,8 +83,6 @@ define github::checkout($path) {
   vcsrepo { "latest ${name}":
     ensure   => latest,
     revision => 'master',
-    provider => git,
-    owner    => 'vagrant',
     path     => $path,
     source   => "https://github.com/${name}.git",
   }
@@ -196,13 +214,11 @@ class git::template {
   file { '~/.git_template':
     ensure => directory,
     path   => '/home/vagrant/.git_template',
-    owner  => 'vagrant',
   }
   file { '~/.git_template/hooks':
     ensure  => directory,
     require => File['~/.git_template'],
     path    => '/home/vagrant/.git_template/hooks',
-    owner   => 'vagrant',
   }
 }
 
@@ -212,7 +228,6 @@ define git::hook($source = '', $content = file($source)) {
     require => File['~/.git_template/hooks'],
     path    => "/home/vagrant/.git_template/hooks/${title}",
     mode    => 772,
-    owner   => 'vagrant',
     content  => $content,
   }
 }
@@ -295,7 +310,6 @@ class rbenv::default_gems($gems) {
   file { 'rbenv default gems':
     require => Class['rbenv'],
     path    => '/home/vagrant/.rbenv/default-gems',
-    owner   => 'vagrant',
     content => join($gems, "\n"),
   }
 }
@@ -321,7 +335,6 @@ class tmux {
   }
   file { '~/.ssh/rc':
     ensure => present,
-    owner  => 'vagrant',
     path    => '/home/vagrant/.ssh/rc',
     source => '/vagrant/files/ssh_rc',
   }
@@ -442,13 +455,11 @@ let g:solarized_termtrans=1",
   file { '~/.bundle':
     ensure => directory,
     path   => '/home/vagrant/.bundle',
-    owner  => 'vagrant',
   }
   file { '~/.bundle/config':
     ensure  => present,
     require => File['~/.bundle'],
     path    => '/home/vagrant/.bundle/config',
-    owner   => 'vagrant',
   }
   file_line { 'bundle binstubs':
     require => File['~/.bundle/config'],
