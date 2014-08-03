@@ -363,6 +363,27 @@ class tmux::default-shell {
   profile::section { '/vagrant/files/tmux.sh': }
 }
 
+class ruby::bundler::binstubs {
+  file { '~/.bundle':
+    ensure => directory,
+    path   => '/home/vagrant/.bundle',
+  }
+  file { '~/.bundle/config':
+    ensure  => present,
+    path    => '/home/vagrant/.bundle/config',
+  }
+  file_line { 'BUNDLE_BIN':
+    require => File['~/.bundle/config'],
+    path    => '/home/vagrant/.bundle/config',
+    line    => 'BUNDLE_BIN: .bundle/bin',
+  }
+  file_line { 'BUNDLE_PATH':
+    require => File['~/.bundle/config'],
+    path    => '/home/vagrant/.bundle/config',
+    line    => 'BUNDLE_PATH: .bundle/gem',
+  }
+}
+
 node default {
   exec { 'yes | pacman -Syu': timeout => 0 }
   include profile
@@ -453,20 +474,7 @@ let g:solarized_termtrans=1",
       'rubocop',
     ]
   }
-  file { '~/.bundle':
-    ensure => directory,
-    path   => '/home/vagrant/.bundle',
-  }
-  file { '~/.bundle/config':
-    ensure  => present,
-    require => File['~/.bundle'],
-    path    => '/home/vagrant/.bundle/config',
-  }
-  file_line { 'bundle binstubs':
-    require => File['~/.bundle/config'],
-    path    => '/home/vagrant/.bundle/config',
-    line    => 'BUNDLE_BIN: .bundle/bin',
-  }
+  include ruby::bundler::binstubs
 
   package { 'ctags': }
   include git::ctags
