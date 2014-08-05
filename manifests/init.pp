@@ -411,13 +411,13 @@ node default {
       command=> '!sh -c \'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"\' -';
   }
 
-  class { 'vim': 
+  class { 'vim':
     plugins => [
-      'airblade/vim-gitgutter',
       'bling/vim-airline',
       'godlygeek/tabular',
       'kien/ctrlp.vim',
       'majutsushi/tagbar',
+      'mhinz/vim-signify',
       'matze/vim-move',
       'othree/html5.vim',
       'rodjek/vim-puppet',
