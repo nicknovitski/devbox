@@ -13,6 +13,9 @@ set mouse=a
 " show some invisible characters
 set list
 
+" enable line numbers
+set number
+
 " map semicolon to colon
 " That way you dont need to hold Shift to enter cmdline mode
 map ; :
