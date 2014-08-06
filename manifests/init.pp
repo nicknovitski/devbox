@@ -330,6 +330,10 @@ class docker {
     require => Package['docker'],
     enable  => true,
   }
+
+  exec { 'gpasswd -a vagrant docker':
+    unless => 'groups vagrant | grep docker'
+  }
 }
 
 class tmux {
