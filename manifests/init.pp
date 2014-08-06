@@ -319,7 +319,12 @@ class pyenv {
 }
 
 class docker {
-  package { 'docker': }
+  package { [
+    'docker',
+    'lxc',
+    'btrfs-progs',
+  ]: }
+
   service { 'docker':
     ensure  => running,
     require => Package['docker'],
