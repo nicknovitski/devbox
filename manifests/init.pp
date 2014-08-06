@@ -385,6 +385,11 @@ class ruby::bundler::binstubs {
 }
 
 node default {
+  package { [
+    'gtypist',
+    'parallel',
+    'bash-completion'
+  ]: }
   exec { 'yes | pacman -Syu': timeout => 0 }
 
   include profile
