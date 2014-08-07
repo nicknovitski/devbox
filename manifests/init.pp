@@ -20,6 +20,8 @@ Package {
   ensure => latest
 }
 
+Concat { owner => 'vagrant' }
+
 class vim($plugins = []) {
   package { 'vim': }
   class { 'vim::pathogen': }
@@ -31,7 +33,6 @@ class vim($plugins = []) {
   }
   concat { '/home/vagrant/.vimrc':
     ensure => present,
-    owner  => 'vagrant',
   }
   git::ignore { 'vim':
     ignore => [
@@ -130,7 +131,6 @@ class git {
   }
   concat { '/home/vagrant/.gitignore':
     ensure => present,
-    owner  => 'vagrant',
   }
   git::config { 'no .orig files':
     section => 'mergetool',
@@ -249,7 +249,6 @@ class git::ctags {
 class profile {
   concat { '/home/vagrant/.profile':
     ensure => present,
-    owner  => 'vagrant',
   }
 }
 
@@ -340,7 +339,6 @@ class tmux {
   package { 'tmux': }
   concat { '/home/vagrant/.tmux.conf':
     ensure => present,
-    owner  => 'vagrant',
   }
   file { '~/.ssh/rc':
     ensure => present,
