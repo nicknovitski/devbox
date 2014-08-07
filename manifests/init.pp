@@ -1,9 +1,9 @@
 File {
-  owner => 'vagrant',
+  owner => 'dev',
 }
 
 Vcsrepo {
-  owner    => 'vagrant',
+  owner    => 'dev',
   provider => git,
 }
 
@@ -20,7 +20,7 @@ Package {
   ensure => latest
 }
 
-Concat { owner => 'vagrant' }
+Concat { owner => 'dev' }
 
 class vim($plugins = []) {
   package { 'vim': }
@@ -29,11 +29,9 @@ class vim($plugins = []) {
   file { 'ftplugin':
     require => Class['vim::pathogen'],
     ensure => directory,
-    path   => '/home/vagrant/.vim/ftplugin',
+    path   => '/home/dev/.vim/ftplugin',
   }
-  concat { '/home/vagrant/.vimrc':
-    ensure => present,
-  }
+  concat { '/home/dev/.vimrc': ensure => present }
   git::ignore { 'vim':
     ignore => [
       '[._]*.s[a-w][a-z]',
@@ -50,21 +48,21 @@ define vim::bundle () {
   require vim::pathogen
   $github = split($title, '/')
   github::checkout { $title:
-    path => "/home/vagrant/.vim/bundle/${github[1]}",
+    path => "/home/dev/.vim/bundle/${github[1]}",
   }
 }
 
 define vim::ftplugin($source = '', $content = file($source)) {
   file { "ftplugin/${name}.vim":
     require => File['ftplugin'],
-    path    => "/home/vagrant/.vim/ftplugin/${name}.vim",
+    path    => "/home/dev/.vim/ftplugin/${name}.vim",
     content => $content,
   }
 }
 
 define vim::rc($source = '', $content = file($source)) {
   concat::fragment { "add ${name} to vimrc":
-    target  => '/home/vagrant/.vimrc',
+    target  => '/home/dev/.vimrc',
     content => $content,
   }
 }
@@ -77,7 +75,7 @@ define vim::colorscheme($repo, $vimrc = '') {
 }
 
 class vim::pathogen {
-  github::checkout { 'tpope/vim-pathogen': path => '/home/vagrant/.vim' }
+  github::checkout { 'tpope/vim-pathogen': path => '/home/dev/.vim' }
 }
 
 define github::checkout($path) {
@@ -129,9 +127,7 @@ class git {
     setting => 'excludesfile',
     value   => '~/.gitignore',
   }
-  concat { '/home/vagrant/.gitignore':
-    ensure => present,
-  }
+  concat { '/home/dev/.gitignore': ensure => present }
   git::config { 'no .orig files':
     section => 'mergetool',
     setting => 'keepBackup',
@@ -157,7 +153,7 @@ class git {
 define git::ignore($ignore) {
   $lines = join($ignore, "\n")
   concat::fragment { "~/gitignore :: ${title}":
-    target  => '/home/vagrant/.gitignore',
+    target  => '/home/dev/.gitignore',
     content => "# ${title}\n${lines}\n"
   }
 }
@@ -165,7 +161,7 @@ define git::ignore($ignore) {
 define git::config($section, $setting, $value) {
   ini_setting { "global git config set ${section}.${setting} to ${value}":
     ensure  => present,
-    path    => '/home/vagrant/.gitconfig',
+    path    => '/home/dev/.gitconfig',
     section => $section,
     setting => $setting,
     value   => $value,
@@ -202,7 +198,7 @@ define git::user($email) {
 }
 
 class git::prompt {
-  profile::section { '/vagrant/files/enable-git-prompt.sh': }
+  profile::section { '/tmp/files/enable-git-prompt.sh': }
 }
 
 class git::template {
@@ -213,12 +209,12 @@ class git::template {
   }
   file { '~/.git_template':
     ensure => directory,
-    path   => '/home/vagrant/.git_template',
+    path   => '/home/dev/.git_template',
   }
   file { '~/.git_template/hooks':
     ensure  => directory,
     require => File['~/.git_template'],
-    path    => '/home/vagrant/.git_template/hooks',
+    path    => '/home/dev/.git_template/hooks',
   }
 }
 
@@ -226,7 +222,7 @@ define git::hook($source = '', $content = file($source)) {
   file { "~/.git_template/hooks/${title}":
     ensure  => present,
     require => File['~/.git_template/hooks'],
-    path    => "/home/vagrant/.git_template/hooks/${title}",
+    path    => "/home/dev/.git_template/hooks/${title}",
     mode    => 772,
     content  => $content,
   }
@@ -236,47 +232,45 @@ class git::ctags {
   #http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
   $exec_ctags = "#!/bin/sh\n.git/hooks/ctags >/dev/null 2>&1 &"
   git::hook {
-    'ctags': source => '/vagrant/files/git_ctags';
+    'ctags': source => '/tmp/files/git_ctags';
     'post-commit': content => $exec_ctags;
     'post-merge': content => $exec_ctags;
     'post-checkout': content => $exec_ctags;
-    'post-rewrite': source => '/vagrant/files/git_post-rewrite';
+    'post-rewrite': source => '/tmp/files/git_post-rewrite';
   }
   git::alias { 'ctags': command => '!.git/hooks/ctags' }
   git::ignore { 'ctags': ignore => ['tags'] }
 }
 
 class profile {
-  concat { '/home/vagrant/.profile':
-    ensure => present,
-  }
+  concat { '/home/dev/.profile': ensure => present }
 }
 
 define profile::line($line = $title) {
   concat::fragment { "~/.profile: ${line}":
-    target  => '/home/vagrant/.profile',
+    target  => '/home/dev/.profile',
     content => "${line}\n",
   }
 }
 
 define profile::section($source = $title) {
   concat::fragment { "add ${name} to ~/.tmux.conf":
-    target => '/home/vagrant/.profile',
+    target => '/home/dev/.profile',
     source => $source,
   }
 }
 
 define env () {
   $github = split($title, '/')
-  github::checkout { $title: path => "/home/vagrant/.${github[1]}" }
-  profile::section { "/vagrant/files/${github[1]}.sh": }
+  github::checkout { $title: path => "/home/dev/.${github[1]}" }
+  profile::section { "/tmp/files/${github[1]}.sh": }
 }
 
 define env::plugin($host) {
   $github = split($title, '/')
   github::checkout { $title:
     require => Class[$host],
-    path => "/home/vagrant/.${host}/plugins/${github[1]}",
+    path => "/home/dev/.${host}/plugins/${github[1]}",
   }
 }
 
@@ -308,7 +302,7 @@ class rbenv::default_gems($gems) {
   rbenv::plugin { 'sstephenson/rbenv-default-gems': }
   file { 'rbenv default gems':
     require => Class['rbenv'],
-    path    => '/home/vagrant/.rbenv/default-gems',
+    path    => '/home/dev/.rbenv/default-gems',
     content => join($gems, "\n"),
   }
 }
@@ -317,85 +311,61 @@ class pyenv {
   env { 'yyuu/pyenv': }
 }
 
-class docker {
-  package { [
-    'docker',
-    'lxc',
-    'btrfs-progs',
-  ]: }
-
-  service { 'docker':
-    ensure  => running,
-    require => Package['docker'],
-    enable  => true,
-  }
-
-  exec { 'gpasswd -a vagrant docker':
-    unless => 'groups vagrant | grep docker'
-  }
-}
-
 class tmux {
   package { 'tmux': }
-  concat { '/home/vagrant/.tmux.conf':
-    ensure => present,
-  }
-  file { '~/.ssh/rc':
-    ensure => present,
-    path    => '/home/vagrant/.ssh/rc',
-    source => '/vagrant/files/ssh_rc',
-  }
+  concat { '/home/dev/.tmux.conf': ensure => present }
 }
 
 class tmux::mouse {
-  tmux::conf { '/vagrant/files/tmux_mouse.conf': }
+  tmux::conf { '/tmp/files/tmux_mouse.conf': }
 }
 
 class tmux::solarized {
-  tmux::conf { '/vagrant/files/tmux_solarized.conf': }
+  tmux::conf { '/tmp/files/tmux_solarized.conf': }
 }
 
 class tmux::vim {
-  tmux::conf { '/vagrant/files/tmux_vim.conf': }
+  tmux::conf { '/tmp/files/tmux_vim.conf': }
 }
 
 define tmux::conf($source = $title) {
   concat::fragment { "add ${source} to ~/.tmux.conf":
-    target => '/home/vagrant/.tmux.conf',
+    target => '/home/dev/.tmux.conf',
     source => $source,
   }
 }
 
 class tmux::default-shell {
-  profile::section { '/vagrant/files/tmux.sh': }
+  profile::section { '/tmp/files/tmux.sh': }
 }
 
 class ruby::bundler::binstubs {
   file { '~/.bundle':
     ensure => directory,
-    path   => '/home/vagrant/.bundle',
+    path   => '/home/dev/.bundle',
   }
   file { '~/.bundle/config':
     ensure  => present,
-    path    => '/home/vagrant/.bundle/config',
+    path    => '/home/dev/.bundle/config',
   }
   file_line { 'BUNDLE_BIN':
     require => File['~/.bundle/config'],
-    path    => '/home/vagrant/.bundle/config',
+    path    => '/home/dev/.bundle/config',
     line    => 'BUNDLE_BIN: .bundle/bin',
   }
   file_line { 'BUNDLE_PATH':
     require => File['~/.bundle/config'],
-    path    => '/home/vagrant/.bundle/config',
+    path    => '/home/dev/.bundle/config',
     line    => 'BUNDLE_PATH: .bundle/gem',
   }
 }
 
 node default {
   package { [
+    'bash-completion',
+    'docker',
     'gtypist',
     'parallel',
-    'bash-completion'
   ]: }
   exec { 'yes | pacman -Syu': timeout => 0 }
 
@@ -403,14 +373,12 @@ node default {
   include tmux
   include tmux::mouse
   include tmux::default-shell
-  tmux::conf { '/vagrant/files/tmux.conf': }
+  tmux::conf { '/tmp/files/tmux.conf': }
   include tmux::solarized
   include tmux::vim
   vim::rc { 'cool tmux cursors':
-    source => '/vagrant/files/tmux.vim',
+    source => '/tmp/files/tmux.vim',
   }
-
-  include docker
 
   include git
   include git::prompt
@@ -453,7 +421,7 @@ node default {
   }
   profile::line { 'export EDITOR=vim': }
   vim::rc { 'common settings':
-    source => '/vagrant/files/vimrc',
+    source => '/tmp/files/vimrc',
   }
   vim::colorscheme { 'solarized':
     repo  => 'altercation/vim-colors-solarized',
@@ -464,7 +432,7 @@ let g:solarized_termtrans=1",
 
   # ruby
   vim::ftplugin { 'ruby':
-    source => '/vagrant/files/ruby.vim',
+    source => '/tmp/files/ruby.vim',
   }
   include rbenv
   vim::bundle { 'tpope/vim-rbenv': }
