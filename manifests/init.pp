@@ -365,6 +365,7 @@ node default {
     'bash-completion',
     'docker',
     'gtypist',
+    'man',
     'parallel',
   ]: }
   exec { 'yes | pacman -Syu': timeout => 0 }
