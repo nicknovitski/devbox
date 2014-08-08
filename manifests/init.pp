@@ -367,6 +367,7 @@ node default {
     'gtypist',
     'man',
     'parallel',
+    'openssh',
   ]: }
   exec { 'yes | pacman -Syu': timeout => 0 }
 
