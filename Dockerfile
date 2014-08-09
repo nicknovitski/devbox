@@ -16,11 +16,15 @@ RUN rm -r /tmp/*
 
 RUN mkdir /home/dev/src/
 RUN touch /home/dev/src/placeholder
-run chown -R dev:dev /home/dev/src
 VOLUME ['/home/dev/src']
+
+RUN mkdir /home/dev/.ssh
+RUN touch /home/dev/.ssh/known_hosts
+ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
 
 WORKDIR /home/dev
 ENV HOME /home/dev
+RUN chown -R dev:dev /home/dev
 USER dev
 
 CMD /usr/bin/tmux -2u
