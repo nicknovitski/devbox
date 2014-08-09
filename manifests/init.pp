@@ -335,10 +335,6 @@ define tmux::conf($source = $title) {
   }
 }
 
-class tmux::default-shell {
-  profile::section { '/tmp/files/tmux.sh': }
-}
-
 class ruby::bundler::binstubs {
   file { '~/.bundle':
     ensure => directory,
@@ -374,7 +370,6 @@ node default {
   include profile
   include tmux
   include tmux::mouse
-  include tmux::default-shell
   tmux::conf { '/tmp/files/tmux.conf': }
   include tmux::solarized
   include tmux::vim

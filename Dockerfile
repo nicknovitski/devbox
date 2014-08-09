@@ -23,4 +23,4 @@ WORKDIR /home/dev
 ENV HOME /home/dev
 USER dev
 
-CMD /usr/bin/tmux -v new-session -d && tail -F tmux-server*.log
+CMD /usr/bin/tmux
