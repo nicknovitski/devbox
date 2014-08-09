@@ -23,4 +23,4 @@ WORKDIR /home/dev
 ENV HOME /home/dev
 USER dev
 
-CMD /usr/bin/tmux
+CMD /usr/bin/tmux -2u
