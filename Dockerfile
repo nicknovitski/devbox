@@ -1,7 +1,9 @@
 FROM base/archlinux
 
 RUN useradd dev
-RUN mkdir /home/dev && chown -R dev: /home/dev
+RUN groupadd docker
+RUN gpasswd -a dev docker
+RUN mkdir /home/dev
 
 # provision with puppet
 RUN pacman -Sy --noconfirm puppet
