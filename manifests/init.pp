@@ -88,7 +88,6 @@ define github::checkout($path) {
 }
 
 class git {
-  package { 'git': }
   include git::template
   git::alias {
     'ci': command      => 'commit';
@@ -361,9 +360,7 @@ node default {
     'bash-completion',
     'docker',
     'gtypist',
-    'man',
     'parallel',
-    'openssh',
   ]: }
   exec { 'yes | pacman -Syu': timeout => 0 }
 
