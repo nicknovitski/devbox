@@ -11,6 +11,6 @@ RUN LANG=en_US.UTF-8 puppet apply --modulepath=/tmp/modules /tmp/manifests/init.
 RUN rm -r /tmp/*
 
 USER dev
-WORKDIR /home/dev
+WORKDIR /var/shared
 
-CMD ['/usr/bin/tmux', '-2u']
+CMD ["/usr/bin/tmux", "-2u"]
