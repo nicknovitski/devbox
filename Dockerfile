@@ -13,4 +13,4 @@ RUN rm -r /tmp/*
 USER dev
 WORKDIR /home/dev
 
-CMD /usr/bin/tmux -2u
+CMD ['/usr/bin/tmux', '-2u']
