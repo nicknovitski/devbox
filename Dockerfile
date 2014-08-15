@@ -1,4 +1,4 @@
-FROM nicknovitski/archlinux-devbox
+FROM nicknovitski/archlinux-devbox:latest
 
 RUN pacman -Sy --noconfirm puppet
 RUN gem install librarian-puppet
