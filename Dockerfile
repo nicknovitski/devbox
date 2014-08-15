@@ -13,4 +13,6 @@ RUN rm -r /tmp/*
 USER dev
 WORKDIR /var/shared
 
-CMD ["/usr/bin/tmux", "-2u"]
+ENTRYPOINT ["/usr/bin/tmux", "-2u"]
+
+CMD ["new-session"]
