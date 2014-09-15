@@ -1,7 +1,7 @@
 FROM nicknovitski/archlinux-devbox:latest
 
 RUN pacman -Sy --noconfirm puppet
-RUN gem install librarian-puppet
+RUN su - dev -c "gem install librarian-puppet"
 ADD Puppetfile /tmp/Puppetfile
 WORKDIR /tmp
 RUN /home/dev/.gem/ruby/2.1.0/bin/librarian-puppet install
