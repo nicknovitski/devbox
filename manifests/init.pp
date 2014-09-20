@@ -353,6 +353,7 @@ class ruby::bundler::binstubs {
     path    => '/home/dev/.bundle/config',
     line    => 'BUNDLE_PATH: .bundle/gem',
   }
+  git::ignore { '.bundle': ignore => ['/.bundle'] }
 }
 
 node default {
