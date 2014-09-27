@@ -450,6 +450,7 @@ let g:solarized_termtrans=1",
       'rubocop',
     ]
   }
+  profile::section { '/tmp/files/ruby.sh': }
   include ruby::bundler::binstubs
 
   package { 'ctags': }
