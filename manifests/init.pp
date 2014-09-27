@@ -242,19 +242,19 @@ class git::ctags {
 }
 
 class profile {
-  concat { '/home/dev/.profile': ensure => present }
+  concat { '/home/dev/.bash_profile': ensure => present }
 }
 
 define profile::line($line = $title) {
-  concat::fragment { "~/.profile: ${line}":
-    target  => '/home/dev/.profile',
+  concat::fragment { "~/.bash_profile: ${line}":
+    target  => '/home/dev/.bash_profile',
     content => "${line}\n",
   }
 }
 
 define profile::section($source = $title) {
-  concat::fragment { "add ${name} to ~/.tmux.conf":
-    target => '/home/dev/.profile',
+  concat::fragment { "add ${name} to ~/.bash_profile":
+    target => '/home/dev/.bash_profile',
     source => $source,
   }
 }
