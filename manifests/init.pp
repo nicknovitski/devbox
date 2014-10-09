@@ -23,15 +23,8 @@ Package {
 Concat { owner => 'dev' }
 
 class vim($plugins = []) {
-  package { 'vim': }
   class { 'vim::pathogen': }
   vim::bundle { $plugins: }
-  file { 'ftplugin':
-    require => Class['vim::pathogen'],
-    ensure => directory,
-    path   => '/home/dev/.vim/ftplugin',
-  }
-  concat { '/home/dev/.vimrc': ensure => present }
 }
 
 define vim::bundle () {
@@ -39,28 +32,6 @@ define vim::bundle () {
   $github = split($title, '/')
   github::checkout { $title:
     path => "/home/dev/.vim/bundle/${github[1]}",
-  }
-}
-
-define vim::ftplugin($source = '', $content = file($source)) {
-  file { "ftplugin/${name}.vim":
-    require => File['ftplugin'],
-    path    => "/home/dev/.vim/ftplugin/${name}.vim",
-    content => $content,
-  }
-}
-
-define vim::rc($source = '', $content = file($source)) {
-  concat::fragment { "add ${name} to vimrc":
-    target  => '/home/dev/.vimrc',
-    content => $content,
-  }
-}
-
-define vim::colorscheme($repo, $vimrc = '') {
-  vim::bundle { $repo: }
-  vim::rc { 'hold':
-    content => "\" Colors\n${vimrc}\ncolorscheme ${name}"
   }
 }
 
@@ -175,9 +146,6 @@ node default {
   exec { 'yes | pacman -Syu': timeout => 0 }
 
   include profile
-  vim::rc { 'cool tmux cursors':
-    source => '/tmp/files/tmux.vim',
-  }
 
   include git::prompt
 
@@ -210,20 +178,8 @@ node default {
     ],
   }
   profile::line { 'export EDITOR=vim': }
-  vim::rc { 'common settings':
-    source => '/tmp/files/vimrc',
-  }
-  vim::colorscheme { 'solarized':
-    repo  => 'altercation/vim-colors-solarized',
-    vimrc => "set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1",
-  }
 
   # ruby
-  vim::ftplugin { 'ruby':
-    source => '/tmp/files/ruby.vim',
-  }
   include rbenv
   vim::bundle { 'tpope/vim-rbenv': }
   include rbenv::ruby-build

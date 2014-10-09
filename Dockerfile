@@ -1,15 +1,17 @@
 FROM nicknovitski/archlinux-devbox:latest
 
 RUN pacman -S --noconfirm tmux
-ADD tmux.conf /home/dev/.tmux.conf
-ADD gitignore /home/dev/.gitignore
-ADD gitconfig /home/dev/.gitconfig
-ADD git_template /home/dev/.git_template
 RUN pacman -S --noconfirm bash-completion
 RUN pacman -S --noconfirm ctags
 RUN pacman -S --noconfirm docker
 RUN pacman -S --noconfirm gtypist
 RUN pacman -S --noconfirm parallel
+ADD tmux.conf /home/dev/.tmux.conf
+ADD gitignore /home/dev/.gitignore
+ADD gitconfig /home/dev/.gitconfig
+ADD git_template /home/dev/.git_template
+ADD vimrc /home/dev/.vimrc
+ADD vim /home/dev/.vim
 RUN pacman -Sy --noconfirm puppet
 RUN su - dev -c "gem install librarian-puppet"
 ADD Puppetfile /tmp/Puppetfile
