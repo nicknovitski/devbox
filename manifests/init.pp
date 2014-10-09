@@ -172,12 +172,6 @@ class ruby::bundler::binstubs {
 }
 
 node default {
-  package { [
-    'bash-completion',
-    'docker',
-    'gtypist',
-    'parallel',
-  ]: }
   exec { 'yes | pacman -Syu': timeout => 0 }
 
   include profile
@@ -253,8 +247,6 @@ let g:solarized_termtrans=1",
   }
   profile::section { '/tmp/files/ruby.sh': }
   include ruby::bundler::binstubs
-
-  package { 'ctags': }
 
   # node
   include nodenv
