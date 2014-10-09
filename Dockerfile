@@ -1,5 +1,7 @@
 FROM nicknovitski/archlinux-devbox:latest
 
+RUN pacman -S --noconfirm tmux
+ADD tmux.conf /home/dev/.tmux.conf
 RUN pacman -Sy --noconfirm puppet
 RUN su - dev -c "gem install librarian-puppet"
 ADD Puppetfile /tmp/Puppetfile

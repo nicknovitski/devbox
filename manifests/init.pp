@@ -310,30 +310,6 @@ class pyenv {
   env { 'yyuu/pyenv': }
 }
 
-class tmux {
-  package { 'tmux': }
-  concat { '/home/dev/.tmux.conf': ensure => present }
-}
-
-class tmux::mouse {
-  tmux::conf { '/tmp/files/tmux_mouse.conf': }
-}
-
-class tmux::solarized {
-  tmux::conf { '/tmp/files/tmux_solarized.conf': }
-}
-
-class tmux::vim {
-  tmux::conf { '/tmp/files/tmux_vim.conf': }
-}
-
-define tmux::conf($source = $title) {
-  concat::fragment { "add ${source} to ~/.tmux.conf":
-    target => '/home/dev/.tmux.conf',
-    source => $source,
-  }
-}
-
 class ruby::bundler::binstubs {
   file { '~/.bundle':
     ensure => directory,
@@ -366,11 +342,6 @@ node default {
   exec { 'yes | pacman -Syu': timeout => 0 }
 
   include profile
-  include tmux
-  include tmux::mouse
-  tmux::conf { '/tmp/files/tmux.conf': }
-  include tmux::solarized
-  include tmux::vim
   vim::rc { 'cool tmux cursors':
     source => '/tmp/files/tmux.vim',
   }
