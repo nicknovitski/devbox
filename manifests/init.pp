@@ -32,16 +32,6 @@ class vim($plugins = []) {
     path   => '/home/dev/.vim/ftplugin',
   }
   concat { '/home/dev/.vimrc': ensure => present }
-  git::ignore { 'vim':
-    ignore => [
-      '[._]*.s[a-w][a-z]',
-      '[._]s[a-w][a-z]',
-      '*.un~',
-      'Session.vim',
-      '.netrwhist',
-      '*~',
-    ],
-  }
 }
 
 define vim::bundle () {
@@ -149,14 +139,6 @@ class git {
   }
 }
 
-define git::ignore($ignore) {
-  $lines = join($ignore, "\n")
-  concat::fragment { "~/gitignore :: ${title}":
-    target  => '/home/dev/.gitignore',
-    content => "# ${title}\n${lines}\n"
-  }
-}
-
 define git::config($section, $setting, $value) {
   ini_setting { "global git config set ${section}.${setting} to ${value}":
     ensure  => present,
@@ -238,7 +220,6 @@ class git::ctags {
     'post-rewrite': source => '/tmp/files/git_post-rewrite';
   }
   git::alias { 'ctags': command => '!.git/hooks/ctags' }
-  git::ignore { 'ctags': ignore => ['tags'] }
 }
 
 class profile {
