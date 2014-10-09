@@ -77,149 +77,8 @@ define github::checkout($path) {
   }
 }
 
-class git {
-  include git::template
-  git::alias {
-    'ci': command      => 'commit';
-    'co': command      => 'checkout';
-    'br': command      => 'branch';
-    'rb': command      => 'rebase';
-    'rbc': command     => 'rebase --continue';
-    'rba': command     => 'rebase --abort';
-    'st': command      => 'status';
-    'dc': command      => 'diff --cached';
-  }
-  git::config::color { [
-    'branch',
-    'diff',
-    'status',
-    'ui',
-    'grep',
-  ]: }
-  git::config { 'git push simple':
-    section => 'push',
-    setting => 'default',
-    value   => 'simple',
-  }
-  git::config { 'git diff3':
-    section => 'merge',
-    setting => 'conflictstyle',
-    value   => 'diff3',
-  }
-  git::config { 'git perl grep':
-    section => 'grep',
-    setting => 'patternType',
-    value   => 'perl',
-  }
-  git::config { 'global ignores':
-    section => 'core',
-    setting => 'excludesfile',
-    value   => '~/.gitignore',
-  }
-  concat { '/home/dev/.gitignore': ensure => present }
-  git::config { 'no .orig files':
-    section => 'mergetool',
-    setting => 'keepBackup',
-    value   => 'false',
-  }
-  git::config { 'just open difftool when I say so':
-    section => 'difftool',
-    setting => 'prompt',
-    value   => 'false',
-  }
-  git::config { 'just apply patches when I say so':
-    section => 'apply',
-    setting => 'whitespace',
-    value   => 'nowarn',
-  }
-  git::config { 'only allow fast-forward merges on pulls':
-    section => 'pull',
-    setting => 'ff',
-    value   => 'only',
-  }
-}
-
-define git::config($section, $setting, $value) {
-  ini_setting { "global git config set ${section}.${setting} to ${value}":
-    ensure  => present,
-    path    => '/home/dev/.gitconfig',
-    section => $section,
-    setting => $setting,
-    value   => $value,
-  }
-}
-
-define git::config::color($value = 'auto') {
-  git::config { "color git ${name} output":
-    section => 'color',
-    setting => $title,
-    value   => $value,
-  }
-}
-
-define git::alias($command) {
-  git::config { "add git alias ${name}":
-    section => 'alias',
-    setting => $title,
-    value   => $command,
-  }
-}
-
-define git::user($email) {
-  git::config { "git name ${name}":
-    section => 'user',
-    setting => 'name',
-    value   => $title,
-  }
-  git::config { "git email ${email}":
-    section => 'user',
-    setting => 'email',
-    value   => $email,
-  }
-}
-
 class git::prompt {
   profile::section { '/tmp/files/enable-git-prompt.sh': }
-}
-
-class git::template {
-  git::config { 'set template dir':
-    section => 'init',
-    setting => 'templatedir',
-    value   => '~/.git_template',
-  }
-  file { '~/.git_template':
-    ensure => directory,
-    path   => '/home/dev/.git_template',
-  }
-  file { '~/.git_template/hooks':
-    ensure  => directory,
-    require => File['~/.git_template'],
-    path    => '/home/dev/.git_template/hooks',
-  }
-}
-
-define git::hook($source = '', $content = file($source)) {
-  file { "~/.git_template/hooks/${title}":
-    ensure  => present,
-    require => File['~/.git_template/hooks'],
-    path    => "/home/dev/.git_template/hooks/${title}",
-    mode    => 772,
-    content  => $content,
-  }
-}
-
-class git::ctags {
-  #http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
-  $exec_ctags = "#!/bin/sh\n.git/hooks/ctags >/dev/null 2>&1 &"
-  git::hook {
-    'ctags': source => '/tmp/files/git_ctags';
-    'post-commit': content => $exec_ctags;
-    'post-merge': content => $exec_ctags;
-    'post-checkout': content => $exec_ctags;
-    'post-rewrite': source => '/tmp/files/git_post-rewrite';
-  }
-  git::alias { 'ctags': command => '!.git/hooks/ctags' }
 }
 
 class profile {
@@ -310,7 +169,6 @@ class ruby::bundler::binstubs {
     path    => '/home/dev/.bundle/config',
     line    => 'BUNDLE_PATH: .bundle/gem',
   }
-  git::ignore { '.bundle': ignore => ['/.bundle'] }
 }
 
 node default {
@@ -327,16 +185,7 @@ node default {
     source => '/tmp/files/tmux.vim',
   }
 
-  include git
   include git::prompt
-  git::user { 'Nick Novitski': email => 'nicknovitski@gmail.com' }
-  git::alias {
-    'praise': command  => 'blame';
-    'extract':
-      command => 'filter-branch --prune-empty --subdirectory-filter';
-    'grep-sed': # search-and-replace
-      command=> '!sh -c \'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"\' -';
-  }
 
   class { 'vim':
     plugins => [
@@ -406,7 +255,6 @@ let g:solarized_termtrans=1",
   include ruby::bundler::binstubs
 
   package { 'ctags': }
-  include git::ctags
 
   # node
   include nodenv

@@ -1,0 +1,51 @@
+[alias]
+grep-sed = !sh -c 'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"' -
+extract = filter-branch --prune-empty --subdirectory-filter
+praise = blame
+rbc = rebase --continue
+ci = commit
+dc = diff --cached
+rb = rebase
+rba = rebase --abort
+st = status
+co = checkout
+br = branch
+ctags = !.git/hooks/ctags
+
+[apply]
+whitespace = nowarn
+
+[color]
+diff = auto
+ui = auto
+grep = auto
+branch = auto
+status = auto
+
+[core]
+excludesfile = ~/.gitignore
+
+[difftool]
+prompt = false
+
+[grep]
+patternType = perl
+
+[init]
+templatedir = ~/.git_template
+
+[merge]
+conflictstyle = diff3
+
+[mergetool]
+keepBackup = false
+
+[pull]
+ff = only
+
+[push]
+default = simple
+
+[user]
+email = nicknovitski@gmail.com
+name = Nick Novitski

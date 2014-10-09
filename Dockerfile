@@ -3,6 +3,8 @@ FROM nicknovitski/archlinux-devbox:latest
 RUN pacman -S --noconfirm tmux
 ADD tmux.conf /home/dev/.tmux.conf
 ADD gitignore /home/dev/.gitignore
+ADD gitconfig /home/dev/.gitconfig
+ADD git_template /home/dev/.git_template
 RUN pacman -Sy --noconfirm puppet
 RUN su - dev -c "gem install librarian-puppet"
 ADD Puppetfile /tmp/Puppetfile
