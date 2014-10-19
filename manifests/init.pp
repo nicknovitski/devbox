@@ -48,32 +48,9 @@ define github::checkout($path) {
   }
 }
 
-class git::prompt {
-  profile::section { '/tmp/files/enable-git-prompt.sh': }
-}
-
-class profile {
-  concat { '/home/dev/.bash_profile': ensure => present }
-}
-
-define profile::line($line = $title) {
-  concat::fragment { "~/.bash_profile: ${line}":
-    target  => '/home/dev/.bash_profile',
-    content => "${line}\n",
-  }
-}
-
-define profile::section($source = $title) {
-  concat::fragment { "add ${name} to ~/.bash_profile":
-    target => '/home/dev/.bash_profile',
-    source => $source,
-  }
-}
-
 define env () {
   $github = split($title, '/')
   github::checkout { $title: path => "/home/dev/.${github[1]}" }
-  profile::section { "/tmp/files/${github[1]}.sh": }
 }
 
 define env::plugin($host) {
@@ -145,10 +122,6 @@ class ruby::bundler::binstubs {
 node default {
   exec { 'yes | pacman -Syu': timeout => 0 }
 
-  include profile
-
-  include git::prompt
-
   class { 'vim':
     plugins => [
       'bling/vim-airline',
@@ -177,7 +150,6 @@ node default {
       'tpope/vim-vinegar',
     ],
   }
-  profile::line { 'export EDITOR=vim': }
 
   # ruby
   include rbenv
@@ -201,7 +173,6 @@ node default {
       'rubocop',
     ]
   }
-  profile::section { '/tmp/files/ruby.sh': }
   include ruby::bundler::binstubs
 
   # node
