@@ -23,10 +23,10 @@ ADD bash_profile /home/dev/.bash_profile
 ADD bundle /home/dev/.bundle
 
 RUN pacman -S --noconfirm puppet
-RUN su - dev -c "gem install librarian-puppet"
+RUN gem install librarian-puppet --no-user-install
 ADD Puppetfile /tmp/Puppetfile
 WORKDIR /tmp
-RUN /home/dev/.gem/ruby/2.1.0/bin/librarian-puppet install
+RUN librarian-puppet install
 ADD manifests /tmp/manifests
 ADD files /tmp/files
 RUN LANG=en_US.UTF-8 puppet apply --modulepath=/tmp/modules /tmp/manifests/init.pp
