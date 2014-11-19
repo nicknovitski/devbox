@@ -14,6 +14,7 @@ ADD git_template /home/dev/.git_template
 ADD vimrc /home/dev/.vimrc
 ADD vim /home/dev/.vim
 ADD bash_profile /home/dev/.bash_profile
+ADD bundle /home/dev/.bundle
 
 RUN pacman -Sy --noconfirm puppet
 RUN su - dev -c "gem install librarian-puppet"

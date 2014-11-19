@@ -98,27 +98,6 @@ class pyenv {
   env { 'yyuu/pyenv': }
 }
 
-class ruby::bundler::binstubs {
-  file { '~/.bundle':
-    ensure => directory,
-    path   => '/home/dev/.bundle',
-  }
-  file { '~/.bundle/config':
-    ensure  => present,
-    path    => '/home/dev/.bundle/config',
-  }
-  file_line { 'BUNDLE_BIN':
-    require => File['~/.bundle/config'],
-    path    => '/home/dev/.bundle/config',
-    line    => 'BUNDLE_BIN: .bundle/bin',
-  }
-  file_line { 'BUNDLE_PATH':
-    require => File['~/.bundle/config'],
-    path    => '/home/dev/.bundle/config',
-    line    => 'BUNDLE_PATH: .bundle/gem',
-  }
-}
-
 node default {
   exec { 'yes | pacman -Syu': timeout => 0 }
 
@@ -173,7 +152,6 @@ node default {
       'rubocop',
     ]
   }
-  include ruby::bundler::binstubs
 
   # node
   include nodenv
