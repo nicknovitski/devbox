@@ -2,6 +2,7 @@
 set nocompatible
 
 " activate pathogen plugin manager
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
 " generate helptags for every plugin

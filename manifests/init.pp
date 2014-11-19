@@ -22,21 +22,11 @@ Package {
 
 Concat { owner => 'dev' }
 
-class vim($plugins = []) {
-  class { 'vim::pathogen': }
-  vim::bundle { $plugins: }
-}
-
 define vim::bundle () {
-  require vim::pathogen
   $github = split($title, '/')
   github::checkout { $title:
     path => "/home/dev/.vim/bundle/${github[1]}",
   }
-}
-
-class vim::pathogen {
-  github::checkout { 'tpope/vim-pathogen': path => '/home/dev/.vim' }
 }
 
 define github::checkout($path) {
@@ -99,8 +89,7 @@ class pyenv {
 }
 
 node default {
-  class { 'vim':
-    plugins => [
+  vim::bundle { [
       'bling/vim-airline',
       'godlygeek/tabular',
       'kien/ctrlp.vim',
@@ -117,6 +106,7 @@ node default {
       'tpope/vim-endwise',
       'tpope/vim-eunuch',
       'tpope/vim-fugitive',
+      'tpope/vim-pathogen',
       'tpope/vim-repeat',
       'tpope/vim-rails',
       'tpope/vim-rake',
@@ -125,8 +115,7 @@ node default {
       'tpope/vim-tbone',
       'tpope/vim-unimpaired',
       'tpope/vim-vinegar',
-    ],
-  }
+  ]: }
 
   # ruby
   include rbenv
