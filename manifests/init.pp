@@ -90,6 +90,7 @@ class pyenv {
 
 node default {
   vim::bundle { [
+      'altercation/vim-colors-solarized',
       'bling/vim-airline',
       'godlygeek/tabular',
       'kien/ctrlp.vim',
