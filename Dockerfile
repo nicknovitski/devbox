@@ -30,6 +30,8 @@ ADD files /tmp/files
 RUN LANG=en_US.UTF-8 puppet apply --modulepath=/tmp/modules /tmp/manifests/init.pp
 RUN rm -r /tmp/*
 
+RUN pacman -Syu --noconfirm
+
 WORKDIR /var/shared
 
 ENTRYPOINT ["/usr/bin/tmux", "-2u"]

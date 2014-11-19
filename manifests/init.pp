@@ -99,8 +99,6 @@ class pyenv {
 }
 
 node default {
-  exec { 'yes | pacman -Syu': timeout => 0 }
-
   class { 'vim':
     plugins => [
       'bling/vim-airline',
