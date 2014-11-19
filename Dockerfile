@@ -1,6 +1,10 @@
-FROM nicknovitski/archlinux-devbox:latest
+FROM base/archlinux:2014.07.03
 
+RUN pacman -S --noconfirm git
+RUN pacman -S --noconfirm vim
 RUN pacman -S --noconfirm tmux
+RUN pacman -S --noconfirm base-devel curl man openssh sudo wget unzip
+
 RUN pacman -S --noconfirm bash-completion
 RUN pacman -S --noconfirm ctags
 RUN pacman -S --noconfirm docker
