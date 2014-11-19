@@ -1,5 +1,7 @@
 FROM base/archlinux:2014.07.03
 
+RUN pacman -Syu --noconfirm
+
 RUN pacman -S --noconfirm git
 RUN pacman -S --noconfirm vim
 RUN pacman -S --noconfirm tmux
@@ -20,7 +22,7 @@ ADD vim /home/dev/.vim
 ADD bash_profile /home/dev/.bash_profile
 ADD bundle /home/dev/.bundle
 
-RUN pacman -Sy --noconfirm puppet
+RUN pacman -S --noconfirm puppet
 RUN su - dev -c "gem install librarian-puppet"
 ADD Puppetfile /tmp/Puppetfile
 WORKDIR /tmp
@@ -29,8 +31,6 @@ ADD manifests /tmp/manifests
 ADD files /tmp/files
 RUN LANG=en_US.UTF-8 puppet apply --modulepath=/tmp/modules /tmp/manifests/init.pp
 RUN rm -r /tmp/*
-
-RUN pacman -Syu --noconfirm
 
 WORKDIR /var/shared
 
