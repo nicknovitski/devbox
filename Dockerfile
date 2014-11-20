@@ -13,6 +13,17 @@ RUN pacman -S --noconfirm docker
 RUN pacman -S --noconfirm gtypist
 RUN pacman -S --noconfirm parallel
 
+WORKDIR /tmp
+# yaourt
+RUN pacman -S --noconfirm yajl
+RUN curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz | tar zx
+WORKDIR /tmp/package-query
+RUN makepkg --asroot --noconfirm -i
+WORKDIR /tmp
+RUN curl https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz | tar zx
+WORKDIR /tmp/yaourt
+RUN makepkg --asroot --noconfirm -i
+
 RUN useradd --create-home dev
 ADD dev-sudoer /etc/sudoers.d/dev-sudoer
 ENV HOME /home/dev
@@ -44,11 +55,11 @@ RUN sudo chown -R dev:dev /home/dev
 RUN sudo pacman -S --noconfirm puppet
 RUN sudo gem install librarian-puppet --no-user-install
 ADD Puppetfile /tmp/Puppetfile
-WORKDIR /tmp
 RUN librarian-puppet install
 ADD manifests /tmp/manifests
 ADD files /tmp/files
 RUN puppet apply --modulepath=/tmp/modules /tmp/manifests/init.pp
+
 RUN sudo rm -r /tmp/*
 
 WORKDIR /var/shared
