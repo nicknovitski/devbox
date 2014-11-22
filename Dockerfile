@@ -47,7 +47,7 @@ ADD tmux.conf /home/dev/.tmux.conf
 ADD gitignore /home/dev/.gitignore
 ADD gitconfig /home/dev/.gitconfig
 ADD git_template /home/dev/.git_template
-ADD bash_profile /home/dev/.bash_profile
+ADD profile.d/*.sh /etc/profile.d/
 ADD bundle /home/dev/.bundle
 
 ADD vimrc /home/dev/.vimrc
