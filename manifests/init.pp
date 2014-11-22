@@ -22,13 +22,6 @@ Package {
 
 Concat { owner => 'dev' }
 
-define vim::bundle () {
-  $github = split($title, '/')
-  github::checkout { $title:
-    path => "/home/dev/.vim/bundle/${github[1]}",
-  }
-}
-
 define github::checkout($path) {
   vcsrepo { "latest ${name}":
     ensure   => latest,
@@ -89,38 +82,8 @@ class pyenv {
 }
 
 node default {
-  vim::bundle { [
-      'altercation/vim-colors-solarized',
-      'bling/vim-airline',
-      'godlygeek/tabular',
-      'kien/ctrlp.vim',
-      'majutsushi/tagbar',
-      'mhinz/vim-signify',
-      'matze/vim-move',
-      'othree/html5.vim',
-      'rodjek/vim-puppet',
-      'scrooloose/syntastic',
-      'tpope/vim-abolish',
-      'tpope/vim-bundler',
-      'tpope/vim-commentary',
-      'tpope/vim-dispatch',
-      'tpope/vim-endwise',
-      'tpope/vim-eunuch',
-      'tpope/vim-fugitive',
-      'tpope/vim-pathogen',
-      'tpope/vim-repeat',
-      'tpope/vim-rails',
-      'tpope/vim-rake',
-      'tpope/vim-sensible',
-      'tpope/vim-surround',
-      'tpope/vim-tbone',
-      'tpope/vim-unimpaired',
-      'tpope/vim-vinegar',
-  ]: }
-
   # ruby
   include rbenv
-  vim::bundle { 'tpope/vim-rbenv': }
   include rbenv::ruby-build
   rbenv::plugin { [
     'ianheggie/rbenv-binstubs',
