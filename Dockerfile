@@ -54,8 +54,8 @@ ADD vimrc /home/dev/.vimrc
 ADD vim /home/dev/.vim
 RUN sudo chown -R dev:dev /home/dev
 RUN mkdir /home/dev/.vim/bundle
-ADD github-vim-bundle /tmp/github-vim-bundle
-RUN /tmp/github-vim-bundle \
+ADD github-install /tmp/
+RUN /tmp/github-install .vim/bundle \
   altercation/vim-colors-solarized \
   bling/vim-airline \
   godlygeek/tabular \
@@ -84,16 +84,19 @@ RUN /tmp/github-vim-bundle \
   tpope/vim-unimpaired \
   tpope/vim-vinegar
 
-RUN sudo pacman -S --noconfirm puppet
-RUN sudo gem install librarian-puppet --no-user-install
-ADD Puppetfile /tmp/Puppetfile
-WORKDIR /tmp
-RUN librarian-puppet install
-ADD manifests /tmp/manifests
-ADD files /tmp/files
-RUN puppet apply --modulepath=/tmp/modules /tmp/manifests/init.pp
+RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+RUN /tmp/github-install .rbenv/plugins \
+    ianheggie/rbenv-binstubs \
+    sstephenson/rbenv-default-gems \
+    sstephenson/rbenv-gem-rehash \
+    tpope/rbenv-communal-gems \
+    tpope/rbenv-ctags \
+    tpope/rbenv-sentience
+ADD default-gems ~/.rbenv/
 
-RUN sudo rm -r /tmp/*
+RUN git clone https://github.com/OiNutter/nodenv.git ~/.nodenv
+RUN git clone https://github.com/OiNutter/node-build.git ~/.nodenv/plugins/node-build
 
 WORKDIR /var/shared
 
