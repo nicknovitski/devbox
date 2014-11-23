@@ -25,9 +25,11 @@ RUN pacman -S --noconfirm git vim tmux
 # my things
 RUN pacman -S --noconfirm bash-completion ctags docker gtypist parallel
 
+ADD github-install /tmp/
+
 # 'dev' user
 RUN useradd --create-home dev
-ADD dev-sudoer /etc/sudoers.d/dev-sudoer
+ADD dev-sudoer /etc/sudoers.d/
 ENV HOME /home/dev
 
 # workspace
@@ -38,23 +40,8 @@ VOLUME ['/var/shared']
 
 USER dev
 
-# ssh agent "forwarding"
-RUN mkdir /home/dev/.ssh
-RUN touch /home/dev/.ssh/known_hosts
-ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
-
-ADD tmux.conf /home/dev/.tmux.conf
-ADD gitignore /home/dev/.gitignore
-ADD gitconfig /home/dev/.gitconfig
-ADD git_template /home/dev/.git_template
-ADD profile.d/*.sh /etc/profile.d/
-ADD bundle /home/dev/.bundle
-
-ADD vimrc /home/dev/.vimrc
-ADD vim /home/dev/.vim
-RUN sudo chown -R dev:dev /home/dev
-RUN mkdir /home/dev/.vim/bundle
-ADD github-install /tmp/
+# vim plugins
+RUN mkdir -p /home/dev/.vim/bundle
 RUN /tmp/github-install .vim/bundle \
   altercation/vim-colors-solarized \
   bling/vim-airline \
@@ -84,8 +71,9 @@ RUN /tmp/github-install .vim/bundle \
   tpope/vim-unimpaired \
   tpope/vim-vinegar
 
-RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+# rbenv
+RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
+RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 RUN /tmp/github-install .rbenv/plugins \
     ianheggie/rbenv-binstubs \
     sstephenson/rbenv-default-gems \
@@ -93,10 +81,28 @@ RUN /tmp/github-install .rbenv/plugins \
     tpope/rbenv-communal-gems \
     tpope/rbenv-ctags \
     tpope/rbenv-sentience
-ADD default-gems ~/.rbenv/
 
-RUN git clone https://github.com/OiNutter/nodenv.git ~/.nodenv
-RUN git clone https://github.com/OiNutter/node-build.git ~/.nodenv/plugins/node-build
+# nodenv
+RUN git clone https://github.com/OiNutter/nodenv.git /home/dev/.nodenv
+RUN git clone https://github.com/OiNutter/node-build.git /home/dev/.nodenv/plugins/node-build
+
+# ssh agent "forwarding"
+RUN mkdir /home/dev/.ssh
+ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
+
+ADD tmux.conf /home/dev/.tmux.conf
+ADD gitignore /home/dev/.gitignore
+ADD gitconfig /home/dev/.gitconfig
+ADD git_template /home/dev/.git_template
+ADD profile.d/*.sh /etc/profile.d/
+ADD bundle /home/dev/.bundle
+ADD default-gems /home/dev/.rbenv/
+ADD ssh/known_hosts /home/dev/.ssh/
+
+ADD vimrc /home/dev/.vimrc
+ADD vim/ftplugin /home/dev/.vim/
+
+RUN sudo chown -R dev:dev /home/dev
 
 WORKDIR /var/shared
 
