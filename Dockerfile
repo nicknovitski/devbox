@@ -29,7 +29,6 @@ ADD github-install /tmp/
 
 # 'dev' user
 RUN useradd --create-home dev
-ADD dev-sudoer /etc/sudoers.d/
 ENV HOME /home/dev
 
 # workspace
@@ -94,13 +93,14 @@ ADD tmux.conf /home/dev/.tmux.conf
 ADD gitignore /home/dev/.gitignore
 ADD gitconfig /home/dev/.gitconfig
 ADD git_template /home/dev/.git_template
-ADD profile.d/*.sh /etc/profile.d/
 ADD bundle /home/dev/.bundle
 ADD default-gems /home/dev/.rbenv/
 ADD ssh/known_hosts /home/dev/.ssh/
-
 ADD vimrc /home/dev/.vimrc
 ADD vim/ftplugin /home/dev/.vim/
+
+ADD profile.d/*.sh /etc/profile.d/
+ADD sudoers.d/* /etc/sudoers.d/
 
 RUN sudo chown -R dev:dev /home/dev
 
