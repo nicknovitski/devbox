@@ -86,10 +86,6 @@ RUN /tmp/github-install .rbenv/plugins \
 RUN git clone https://github.com/OiNutter/nodenv.git /home/dev/.nodenv
 RUN git clone https://github.com/OiNutter/node-build.git /home/dev/.nodenv/plugins/node-build
 
-# ssh agent "forwarding"
-RUN mkdir /home/dev/.ssh
-ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
-
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 
@@ -97,6 +93,8 @@ ADD profile.d/*.sh /etc/profile.d/
 ADD sudoers.d/* /etc/sudoers.d/
 
 RUN sudo chown -R dev:dev /home/dev
+
+ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
 
 WORKDIR /var/shared
 
