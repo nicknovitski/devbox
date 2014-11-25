@@ -106,6 +106,4 @@ RUN sudo chown -R dev:dev /home/dev
 
 WORKDIR /var/shared
 
-ENTRYPOINT ["/usr/bin/tmux", "-2u"]
-
-CMD ["new-session"]
+CMD ["/usr/bin/tmux", "-2u", "new-session"]
