@@ -81,6 +81,9 @@ RUN /tmp/github-install .rbenv/plugins \
     tpope/rbenv-communal-gems \
     tpope/rbenv-ctags \
     tpope/rbenv-sentience
+ADD dotfiles/rbenv/default-gems /home/dev/.rbenv/
+RUN /home/dev/.rbenv/bin/rbenv install 2.1.5
+RUN /home/dev/.rbenv/bin/rbenv global 2.1.5
 
 # nodenv
 RUN git clone https://github.com/OiNutter/nodenv.git /home/dev/.nodenv
