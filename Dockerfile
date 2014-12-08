@@ -75,12 +75,13 @@ RUN /tmp/github-install .vim/bundle \
 RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 RUN /tmp/github-install .rbenv/plugins \
-    ianheggie/rbenv-binstubs \
-    sstephenson/rbenv-default-gems \
-    sstephenson/rbenv-gem-rehash \
-    tpope/rbenv-communal-gems \
-    tpope/rbenv-ctags \
-    tpope/rbenv-sentience
+  ianheggie/rbenv-binstubs \
+  nicknovitski/rbenv-gem-update \
+  sstephenson/rbenv-default-gems \
+  sstephenson/rbenv-gem-rehash \
+  tpope/rbenv-communal-gems \
+  tpope/rbenv-ctags \
+  tpope/rbenv-sentience
 ADD dotfiles/rbenv/default-gems /home/dev/.rbenv/
 RUN /home/dev/.rbenv/bin/rbenv install 2.1.5
 RUN /home/dev/.rbenv/bin/rbenv global 2.1.5
