@@ -17,6 +17,9 @@ set list
 " enable line numbers
 set number
 
+" make tabs narrower
+set tabstop=4
+
 " map semicolon to colon
 " That way you dont need to hold Shift to enter cmdline mode
 map ; :
