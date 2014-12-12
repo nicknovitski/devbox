@@ -72,7 +72,7 @@ RUN /tmp/github-install .vim/bundle \
   tpope/vim-unimpaired \
   tpope/vim-vinegar
 
-# rbenv
+# ruby
 RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
 RUN /tmp/github-install .rbenv/plugins \
@@ -87,7 +87,7 @@ ADD dotfiles/rbenv/default-gems /home/dev/.rbenv/
 RUN /home/dev/.rbenv/bin/rbenv install 2.1.5
 RUN /home/dev/.rbenv/bin/rbenv global 2.1.5
 
-# nodenv
+# node
 RUN git clone https://github.com/OiNutter/nodenv.git /home/dev/.nodenv
 RUN git clone https://github.com/OiNutter/node-build.git /home/dev/.nodenv/plugins/node-build
 
