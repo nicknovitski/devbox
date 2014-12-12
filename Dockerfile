@@ -39,6 +39,7 @@ RUN chown -R dev:dev /var/shared
 VOLUME ['/var/shared']
 
 USER dev
+ADD sudoers.d/* /etc/sudoers.d/
 
 # vim plugins
 RUN mkdir -p /home/dev/.vim/bundle
@@ -90,11 +91,13 @@ RUN /home/dev/.rbenv/bin/rbenv global 2.1.5
 RUN git clone https://github.com/OiNutter/nodenv.git /home/dev/.nodenv
 RUN git clone https://github.com/OiNutter/node-build.git /home/dev/.nodenv/plugins/node-build
 
+# go
+RUN sudo pacman -S --noconfirm go
+
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 
 ADD profile.d/*.sh /etc/profile.d/
-ADD sudoers.d/* /etc/sudoers.d/
 
 RUN sudo chown -R dev:dev /home/dev
 
