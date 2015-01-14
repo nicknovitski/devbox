@@ -9,22 +9,14 @@ RUN pacman -Syu --noconfirm
 # build basics
 RUN pacman -S --noconfirm base-devel curl man openssh sudo wget unzip yajl
 
-# yaourt
-WORKDIR /tmp
-RUN curl https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz | tar zx
-WORKDIR /tmp/package-query
-RUN makepkg --asroot --noconfirm -i
-WORKDIR /tmp
-RUN curl https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz | tar zx
-WORKDIR /tmp/yaourt
-RUN makepkg --asroot --noconfirm -i
-
 # development basics
 RUN pacman -S --noconfirm git vim tmux
 
 # my things
-RUN pacman -S --noconfirm bash-completion ctags docker gtypist parallel
-RUN yaourt -Sa --noconfirm rcm-git
+RUN pacman -S --noconfirm bash-completion ctags docker gtypist parallel ruby-mustache
+RUN curl https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz | tar xz && \
+  cd rcm-1.2.3 && \
+  ./configure && make && make install
 
 ADD github-install /tmp/
 
