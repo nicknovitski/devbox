@@ -6,6 +6,9 @@ ENV LANG en_US.UTF-8
 # (https://wiki.archlinux.org/index.php/pacman#Partial_upgrades_are_unsupported)
 RUN pacman -Syu --noconfirm
 
+# upgrade pacman database
+RUN pacman-db-upgrade
+
 # build basics
 RUN pacman -S --noconfirm base-devel curl man openssh sudo wget unzip yajl
 
