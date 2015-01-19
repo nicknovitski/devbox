@@ -89,6 +89,9 @@ RUN git clone https://github.com/OiNutter/node-build.git /home/dev/.nodenv/plugi
 # go
 RUN sudo pacman -S --noconfirm go
 
+# rust
+RUN sudo pacman -S --noconfirm rust
+
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 
