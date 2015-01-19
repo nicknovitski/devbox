@@ -58,3 +58,10 @@ colorscheme solarized
 
 " Rebalance splits when the window resizes
 au VimResized * :wincmd =
+
+" Enable cursorline on the window with focus
+augroup cline
+  au!
+  au WinLeave,InsertEnter * set nocursorline
+  au WinEnter,InsertLeave * set cursorline
+augroup END
