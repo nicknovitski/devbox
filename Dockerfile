@@ -67,6 +67,11 @@ RUN /tmp/github-install .vim/bundle \
   tpope/vim-unimpaired \
   tpope/vim-vinegar
 
+# clojure (ie leinengen)
+RUN sudo wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
+  --output-document /usr/bin/lein
+RUN sudo chmod a+x /usr/bin/lein
+
 # ruby
 RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
