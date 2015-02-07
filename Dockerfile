@@ -42,7 +42,9 @@ RUN /tmp/github-install .vim/bundle \
   altercation/vim-colors-solarized \
   bling/vim-airline \
   godlygeek/tabular \
+  guns/vim-clojure-highlight \
   kien/ctrlp.vim \
+  kien/rainbow_parentheses.vim \
   majutsushi/tagbar \
   mhinz/vim-signify \
   matze/vim-move \
