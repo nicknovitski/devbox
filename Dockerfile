@@ -67,7 +67,8 @@ RUN /tmp/github-install .vim/bundle \
   tpope/vim-unimpaired \
   tpope/vim-vinegar
 
-# clojure (ie leinengen)
+# clojure
+RUN sudo pacman -S --noconfirm jdk8-openjdk
 RUN sudo wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
   --output-document /usr/bin/lein
 RUN sudo chmod a+x /usr/bin/lein
