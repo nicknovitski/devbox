@@ -55,7 +55,10 @@ RUN /tmp/github-install .vim/bundle \
   tpope/vim-dispatch \
   tpope/vim-endwise \
   tpope/vim-eunuch \
+  tpope/vim-fireplace \
   tpope/vim-fugitive \
+  tpope/vim-leiningen \
+  tpope/vim-projectionist \
   tpope/vim-pathogen \
   tpope/vim-rbenv \
   tpope/vim-repeat \
