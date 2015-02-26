@@ -1,4 +1,4 @@
-FROM base/archlinux:2014.07.03
+FROM binhex/arch-base:2015020300
 
 ENV LANG en_US.UTF-8
 
