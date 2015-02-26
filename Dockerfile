@@ -70,7 +70,8 @@ RUN /tmp/github-install .vim/bundle \
   tpope/vim-surround \
   tpope/vim-tbone \
   tpope/vim-unimpaired \
-  tpope/vim-vinegar
+  tpope/vim-vinegar \
+  vim-scripts/paredit.vim
 
 # clojure
 RUN sudo pacman -S --noconfirm jdk8-openjdk
