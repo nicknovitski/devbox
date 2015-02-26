@@ -10,7 +10,7 @@ RUN pacman -Syu --noconfirm
 RUN pacman-db-upgrade
 
 # build basics
-RUN pacman -S --noconfirm base-devel curl man openssh sudo wget unzip yajl
+RUN pacman -S --noconfirm base-devel man openssh wget unzip yajl
 
 # development basics
 RUN pacman -S --noconfirm git vim tmux
