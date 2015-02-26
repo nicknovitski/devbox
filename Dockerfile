@@ -36,43 +36,6 @@ VOLUME ['/var/shared']
 USER dev
 ADD sudoers.d/* /etc/sudoers.d/
 
-# vim plugins
-RUN mkdir -p /home/dev/.vim/bundle
-RUN /tmp/github-install .vim/bundle \
-  altercation/vim-colors-solarized \
-  bling/vim-airline \
-  godlygeek/tabular \
-  guns/vim-clojure-highlight \
-  kien/ctrlp.vim \
-  kien/rainbow_parentheses.vim \
-  majutsushi/tagbar \
-  mhinz/vim-signify \
-  matze/vim-move \
-  othree/html5.vim \
-  rodjek/vim-puppet \
-  scrooloose/syntastic \
-  tpope/vim-abolish \
-  tpope/vim-bundler \
-  tpope/vim-commentary \
-  tpope/vim-dispatch \
-  tpope/vim-endwise \
-  tpope/vim-eunuch \
-  tpope/vim-fireplace \
-  tpope/vim-fugitive \
-  tpope/vim-leiningen \
-  tpope/vim-projectionist \
-  tpope/vim-pathogen \
-  tpope/vim-rbenv \
-  tpope/vim-repeat \
-  tpope/vim-rails \
-  tpope/vim-rake \
-  tpope/vim-sensible \
-  tpope/vim-surround \
-  tpope/vim-tbone \
-  tpope/vim-unimpaired \
-  tpope/vim-vinegar \
-  vim-scripts/paredit.vim
-
 # clojure
 RUN sudo pacman -S --noconfirm jdk8-openjdk
 RUN sudo wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
@@ -104,6 +67,10 @@ RUN sudo pacman -S --noconfirm rust
 
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
+
+RUN mkdir -p /home/dev/.vim/bundle
+RUN /tmp/github-install .vim/bundle Shougo/neobundle.vim
+RUN /home/dev/.vim/bundle/neobundle.vim/bin/neoinstall vimproc.vim
 
 ADD profile.d/*.sh /etc/profile.d/
 
