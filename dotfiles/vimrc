@@ -32,7 +32,7 @@ NeoBundle 'othree/html5.vim'
 NeoBundle 'paredit.vim'
 NeoBundle 'rodjek/vim-puppet'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'linux' : 'make' }}
 NeoBundle 'tpope/vim-abolish'
 NeoBundle 'tpope/vim-bundler'
 NeoBundle 'tpope/vim-commentary'

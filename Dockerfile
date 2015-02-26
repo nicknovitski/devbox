@@ -71,6 +71,7 @@ RUN rcup -v
 RUN mkdir -p /home/dev/.vim/bundle
 RUN /tmp/github-install .vim/bundle Shougo/neobundle.vim
 RUN /home/dev/.vim/bundle/neobundle.vim/bin/neoinstall vimproc.vim
+RUN /home/dev/.vim/bundle/neobundle.vim/bin/neoinstall
 
 ADD profile.d/*.sh /etc/profile.d/
 
