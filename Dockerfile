@@ -69,12 +69,7 @@ RUN sudo pacman -S --noconfirm rust
 
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
-
-RUN mkdir -p /home/dev/.vim/bundle
-RUN /tmp/github-install .vim/bundle Shougo/neobundle.vim
-RUN /home/dev/.vim/bundle/neobundle.vim/bin/neoinstall vimproc.vim
-RUN /home/dev/.vim/bundle/neobundle.vim/bin/neoinstall
-
+RUN vim +PlugInstall +qall
 ADD profile.d/*.sh /etc/profile.d/
 
 RUN sudo chown -R dev:dev /home/dev

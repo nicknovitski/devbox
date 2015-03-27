@@ -5,62 +5,52 @@ if has('vim_starting')
   if &compatible
    set nocompatible               " Be iMproved
   endif
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+" download vim-plug if necessary
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin()
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'guns/vim-clojure-highlight'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'kien/rainbow_parentheses.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'matze/vim-move'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'paredit.vim'
-NeoBundle 'rodjek/vim-puppet'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'linux' : 'make' }}
-NeoBundle 'tpope/vim-abolish'
-NeoBundle 'tpope/vim-bundler'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-eunuch'
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive'}
-NeoBundle 'tpope/vim-leiningen'
-NeoBundle 'tpope/vim-projectionist'
-NeoBundle 'tpope/vim-rbenv'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-rake'
-NeoBundle 'tpope/vim-sensible'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-tbone'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-vinegar'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'godlygeek/tabular'
+Plug 'guns/vim-clojure-highlight'
+Plug 'kien/ctrlp.vim'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mhinz/vim-signify'
+Plug 'matze/vim-move'
+Plug 'othree/html5.vim'
+Plug 'paredit.vim'
+Plug 'rodjek/vim-puppet'
+Plug 'scrooloose/syntastic'
+Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-leiningen'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rbenv'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+call plug#end()
 
 " activate mouse in all modes
 set mouse=a
@@ -113,7 +103,7 @@ endif
 set background=dark
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-colorscheme solarized
+silent! colorscheme solarized
 
 " Rebalance splits when the window resizes
 au VimResized * :wincmd =
