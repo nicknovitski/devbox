@@ -119,3 +119,12 @@ augroup cline
   au WinLeave,InsertEnter * set nocursorline
   au WinEnter,InsertLeave * set cursorline
 augroup END
+
+" fugitive shortcuts
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gl :Glog<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gg :Ggrep
+nnoremap <leader>gmv :Gmove
+nnoremap <leader>grm :Gremove
