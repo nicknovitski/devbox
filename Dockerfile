@@ -20,6 +20,8 @@ RUN pacman -S --noconfirm bash-completion ctags docker gtypist parallel ruby-mus
 RUN curl https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz | tar xz && \
   cd rcm-1.2.3 && \
   ./configure && make && make install
+RUN wget https://github.com/zimbatm/direnv/releases/download/v2.6.0/direnv.linux-amd64 -O /usr/local/bin/direnv
+RUN chmod +x /usr/local/bin/direnv
 
 ADD github-install /tmp/
 
