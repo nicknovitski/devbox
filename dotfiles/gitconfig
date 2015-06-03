@@ -1,52 +1,54 @@
+; vim: set ft=gitconfig:
+
 [alias]
-grep-sed = !sh -c 'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"' -
-extract = filter-branch --prune-empty --subdirectory-filter
-praise = blame
-rbc = rebase --continue
-ci = commit
-dc = diff --cached
-rb = rebase
-rba = rebase --abort
-st = status
-co = checkout
-br = branch
-ctags = !.git/hooks/ctags
-root = rev-parse --show-toplevel
+	grep-sed = !sh -c 'git grep -l \"$1\" | xargs sed -i \"s/$1/$2/g\"' -
+	extract = filter-branch --prune-empty --subdirectory-filter
+	praise = blame
+	rbc = rebase --continue
+	ci = commit
+	dc = diff --cached
+	rb = rebase
+	rba = rebase --abort
+	st = status
+	co = checkout
+	br = branch
+	ctags = !.git/hooks/ctags
+	root = rev-parse --show-toplevel
 
 [apply]
-whitespace = nowarn
+	whitespace = nowarn
 
 [color]
-diff = auto
-ui = auto
-grep = auto
-branch = auto
-status = auto
+	diff = auto
+	ui = auto
+	grep = auto
+	branch = auto
+	status = auto
 
 [core]
-excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore
 
 [difftool]
-prompt = false
+	prompt = false
 
 [grep]
-patternType = perl
+	patternType = perl
 
 [init]
-templatedir = ~/.git_template
+	templatedir = ~/.git_template
 
 [merge]
-conflictstyle = diff3
+	conflictstyle = diff3
 
 [mergetool]
-keepBackup = false
+	keepBackup = false
 
 [pull]
-ff = only
+	ff = only
 
 [push]
-default = simple
+	default = simple
 
 [user]
-email = nicknovitski@gmail.com
-name = Nick Novitski
+	email = nicknovitski@gmail.com
+	name = Nick Novitski
