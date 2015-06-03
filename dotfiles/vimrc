@@ -46,6 +46,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-unimpaired'
@@ -61,10 +62,6 @@ set list
 
 " enable line numbers
 set number
-
-" make tabs narrower
-set tabstop=4
-set shiftwidth=4
 
 " disable spacebar right-motion in normal mode
 nnoremap <Space> <Nop>
