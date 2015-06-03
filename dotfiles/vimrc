@@ -75,6 +75,11 @@ set number
 set tabstop=4
 set shiftwidth=4
 
+" disable spacebar right-motion in normal mode
+nnoremap <Space> <Nop>
+" use it for a leader key instead
+let mapleader=" "
+
 " map semicolon to colon
 " That way you dont need to hold Shift to enter cmdline mode
 map ; :
