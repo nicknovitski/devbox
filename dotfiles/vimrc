@@ -29,6 +29,7 @@ Plug 'othree/html5.vim'
 Plug 'paredit.vim'
 Plug 'rodjek/vim-puppet'
 Plug 'scrooloose/syntastic'
+Plug 'Shougo/unite.vim' | Plug 'Quramy/vision'
 Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
