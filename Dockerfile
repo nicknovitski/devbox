@@ -47,7 +47,7 @@ RUN sudo chmod a+x /usr/bin/lein
 # ruby
 RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
-RUN /tmp/github-install .rbenv/plugins \
+RUN /tmp/github-install /home/dev/.rbenv/plugins \
   ianheggie/rbenv-binstubs \
   nicknovitski/rbenv-gem-update \
   sstephenson/rbenv-default-gems \
