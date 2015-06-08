@@ -25,6 +25,9 @@ RUN chmod +x /usr/local/bin/direnv
 
 ADD github-install /tmp/
 
+RUN /tmp/github-install /usr/local/lib jimeh/tmuxifier
+RUN ln -s /usr/local/lib/tmuxifier/bin/tmuxifier /usr/local/bin
+
 # 'dev' user
 RUN useradd --create-home dev
 ENV HOME /home/dev
