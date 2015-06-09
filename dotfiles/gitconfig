@@ -11,6 +11,7 @@ st = status
 co = checkout
 br = branch
 ctags = !.git/hooks/ctags
+root = rev-parse --show-toplevel
 
 [apply]
 whitespace = nowarn
