@@ -58,11 +58,9 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
   tpope/rbenv-communal-gems \
   tpope/rbenv-ctags \
   tpope/rbenv-sentience
-ADD dotfiles/rbenv/default-gems /home/dev/.rbenv/
 
 # node
-RUN git clone https://github.com/OiNutter/nodenv.git /home/dev/.nodenv
-RUN git clone https://github.com/OiNutter/node-build.git /home/dev/.nodenv/plugins/node-build
+RUN git clone https://github.com/wfarr/nodenv.git /home/dev/.nodenv
 
 # go
 RUN sudo pacman -S --noconfirm go
