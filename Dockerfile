@@ -12,7 +12,7 @@ RUN pacman-db-upgrade
 
 RUN pacman -S --noconfirm base-devel man openssh wget unzip yajl \
   git vim tmux bash-completion ctags docker gtypist parallel ruby-mustache links \
-  weechat sdcv
+  weechat sdcv emacs
 RUN curl https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz | tar xz && \
   cd rcm-1.2.3 && \
   ./configure && make && make install
@@ -74,6 +74,7 @@ ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN vim +PlugInstall +qall
 ADD profile.d/*.sh /etc/profile.d/
+RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 RUN sudo chown -R dev:dev /home/dev
 
