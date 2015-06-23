@@ -27,6 +27,7 @@ Plug 'mhinz/vim-signify'
 Plug 'matze/vim-move'
 Plug 'othree/html5.vim'
 Plug 'paredit.vim'
+Plug 'phongvcao/vim-stardict'
 Plug 'rodjek/vim-puppet'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/unite.vim' | Plug 'Quramy/vison'
@@ -121,3 +122,5 @@ nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gg :Ggrep
 nnoremap <leader>gmv :Gmove
 nnoremap <leader>grm :Gremove
+
+nnoremap <leader>sd :StarDictCursor<CR>
