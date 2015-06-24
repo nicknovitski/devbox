@@ -48,6 +48,9 @@
 
 [push]
 	default = simple
+	
+[rebase]
+	autoSquash = true
 
 [user]
 	email = nicknovitski@gmail.com
