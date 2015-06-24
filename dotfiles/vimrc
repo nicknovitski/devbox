@@ -69,6 +69,18 @@ set list
 " enable line numbers
 set number
 
+" default to utf encoding
+" (for some reason this isn't picking up $LANG like it should)
+set encoding=utf-8
+
+" scroll vertically with 4 extra lines
+set scrolloff=4
+
+" persistent undo history
+set undofile
+set undodir=$HOME/.vim/undo
+silent call system('mkdir -p ' . &undodir)
+
 " disable spacebar right-motion in normal mode
 nnoremap <Space> <Nop>
 " use it for a leader key instead
@@ -81,6 +93,11 @@ map ; :
 " map `Y` to yank to the end of the line
 " You can still yank the entire line with `yy`
 nmap Y y$
+
+" map <tab> to match-motion
+nnoremap <tab> %
+vnoremap <tab> %
+onoremap <tab> %
 
 " recognize .md files as markdown
 au BufRead,BufNewFile *.md set filetype=markdown
@@ -118,6 +135,40 @@ augroup cline
   au WinLeave,InsertEnter * set nocursorline
   au WinEnter,InsertLeave * set cursorline
 augroup END
+
+" highlight when brackets are closed
+set showmatch
+
+" treat all search patterns as "very magic"
+" (ie, metacharacters are default, literals are escaped)
+nnoremap / /\v
+vnoremap / /\v
+" highlight search matches, disable with <leader>/
+set hlsearch
+nnoremap <leader>/ :nohlsearch<cr>
+" ignore case of lower-case search strings
+set ignorecase
+set smartcase
+
+" substitute all matches in a line by default
+set gdefault
+
+" show a line-length guide-line (guide-column?)
+set colorcolumn=85
+
+" automatically insert comment leaders, enable `gq` and help it recognize
+" numbered lists (see :help fo-table for more)
+set formatoptions=jrqln
+
+" disable arrow keys in insert mode
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" move vertically by displayed row, not file line
+nnoremap j gj
+nnoremap k gk
 
 " fugitive shortcuts
 nnoremap <leader>gs :Gstatus<cr>
