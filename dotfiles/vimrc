@@ -19,6 +19,7 @@ call plug#begin()
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'calebsmith/vim-lambdify'
+Plug 'ElmCast/elm-vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'godlygeek/tabular'
 Plug 'guns/vim-clojure-highlight'
