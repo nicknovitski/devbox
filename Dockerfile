@@ -61,9 +61,6 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
   tpope/rbenv-ctags \
   tpope/rbenv-sentience
 
-# node
-RUN git clone https://github.com/wfarr/nodenv.git /home/dev/.nodenv
-
 # go
 RUN sudo pacman -S --noconfirm go
 
