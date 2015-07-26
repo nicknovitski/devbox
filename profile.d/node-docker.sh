@@ -1,27 +1,9 @@
-node-version() {
-	x=`pwd`
-	while [ "$x" != "/" ]; do
-		if [ -f "$x/.node-version" ]; then
-			cat "$x/.node-version"
-			break
-		fi
-		x=`dirname "$x"`
-	done
-}
+# install global npm packages to ~
+NPM_PACKAGES="$HOME/.npm-packages"
 
-node-docker() {
-	version=$(node-version | cut -b 2-)
-	sudo docker run -it --rm \
-		--workdir /var/local \
-		-v $(host-pwd):/var/local \
-		node:${version-latest} "$@"
-}
+# include global npm packages in PATH
+PATH="$NPM_PACKAGES/bin:$PATH"
 
-node() {
-	node-docker node "$@"
-}
-
-npm() {
-	# TODO: somehow handle global installation
-	node-docker npm "$@"
-}
+# include global npm packages in manpath
+unset MANPATH
+MANPATH="$NPM_PACKAGES/share/man:$(manpath)"

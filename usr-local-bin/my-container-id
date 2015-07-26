@@ -1,0 +1,2 @@
+#! /bin/sh
+cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | uniq

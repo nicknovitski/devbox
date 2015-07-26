@@ -41,16 +41,9 @@ ENV HOME /home/dev
 RUN mkdir /var/shared/
 RUN touch /var/shared/placeholder
 RUN chown -R dev:dev /var/shared
-VOLUME ['/var/shared']
 
 USER dev
 ADD sudoers.d/* /etc/sudoers.d/
-
-# clojure
-RUN sudo pacman -S --noconfirm jdk8-openjdk
-RUN sudo wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
-  --output-document /usr/bin/lein
-RUN sudo chmod a+x /usr/bin/lein
 
 # ruby
 RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
@@ -74,6 +67,7 @@ ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN vim +PlugInstall +qall
 ADD profile.d/*.sh /etc/profile.d/
+ADD usr-local-bin/* /usr/local/bin/
 RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 RUN sudo chown -R dev:dev /home/dev
@@ -81,5 +75,7 @@ RUN sudo chown -R dev:dev /home/dev
 ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
 
 WORKDIR /var/shared
+
+VOLUME ['/home/dev', '/var/shared']
 
 CMD ["/usr/bin/tmux", "-2u", "new-session"]
