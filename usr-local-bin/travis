@@ -1,0 +1,2 @@
+#! /bin/sh
+global-gem travis "${@-help}" --skip-completion-check
