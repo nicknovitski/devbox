@@ -12,7 +12,7 @@ RUN pacman-db-upgrade
 
 RUN pacman -S --noconfirm base-devel man openssh wget unzip yajl \
   git vim tmux bash-completion ctags docker gtypist parallel ruby-mustache links \
-  weechat sdcv emacs python2-pip
+  weechat sdcv emacs python2-pip pandoc
 
 RUN pip2 install awscli
 
