@@ -57,9 +57,6 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
   tpope/rbenv-ctags \
   tpope/rbenv-sentience
 
-# go
-RUN sudo pacman -S --noconfirm go
-
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN vim +PlugInstall +qall
