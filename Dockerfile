@@ -60,9 +60,6 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
 # go
 RUN sudo pacman -S --noconfirm go
 
-# rust
-RUN sudo pacman -S --noconfirm rust
-
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN vim +PlugInstall +qall
@@ -73,6 +70,7 @@ RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 RUN sudo chown -R dev:dev /home/dev
 
 ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
+ENV USER "Nick Novitski <.*@nicknovitski.com>"
 
 WORKDIR /var/shared
 
