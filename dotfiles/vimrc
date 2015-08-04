@@ -100,8 +100,9 @@ nnoremap <tab> %
 vnoremap <tab> %
 onoremap <tab> %
 
-" recognize .md files as markdown
+" recognize some file endings I use
 au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.bats set filetype=bash
 
 " enable rubocop
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
