@@ -1,4 +1,4 @@
-FROM binhex/arch-base:2015062200
+FROM binhex/arch-base:2015080700
 
 RUN echo en_US.UTF-8 UTF-8 > /etc/locale.gen; locale-gen; echo LANG="en_US.UTF-8" > /etc/locale.conf
 ENV LANG en_US.UTF-8
