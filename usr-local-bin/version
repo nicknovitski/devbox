@@ -1,0 +1,18 @@
+#! /bin/sh
+if [[ $# -eq 0 ]] ; then
+	echo 'version requires one argument'
+	exit 1
+fi
+VERSION_FILE=.$1-version
+CURRENT_DIR=`pwd`
+while [ "$CURRENT_DIR" != "/" ]; do
+	if [ -f "$CURRENT_DIR/$VERSION_FILE" ]; then
+		cat "$CURRENT_DIR/$VERSION_FILE"
+		exit 0
+	fi
+	CURRENT_DIR=`dirname "$CURRENT_DIR"`
+done
+if [ -f "~/$VERSION_FILE" ]; then
+	cat "~/$VERSION_FILE"
+	exit 0
+fi

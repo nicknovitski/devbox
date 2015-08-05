@@ -1,9 +1,0 @@
-#! /bin/sh
-x=`pwd`
-while [ "$x" != "/" ]; do
-	if [ -f "$x/.node-version" ]; then
-		cat "$x/.node-version"
-		break
-	fi
-	x=`dirname "$x"`
-done
