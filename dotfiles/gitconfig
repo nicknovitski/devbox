@@ -6,8 +6,11 @@
 	praise = blame
 	rbc = rebase --continue
 	ci = commit --verbose
+	cif = commit --fixup
+	cis = commit --squash
 	dc = diff --cached
 	rb = rebase
+	rbi = rebase --interactive --autosquash
 	rba = rebase --abort
 	st = status
 	co = checkout
