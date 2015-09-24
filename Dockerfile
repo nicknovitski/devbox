@@ -16,16 +16,16 @@ RUN pacman -S --noconfirm base-devel man openssh wget unzip yajl \
 
 RUN pip2 install awscli
 
-RUN curl https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz | tar xz && \
+RUN curl --silent https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz | tar xz && \
   cd rcm-1.2.3 && \
   ./configure && make && make install
 
-RUN curl -L https://github.com/github/hub/releases/download/v2.2.1/hub-linux-amd64-2.2.1.tar.gz | tar xz
+RUN curl --silent -L https://github.com/github/hub/releases/download/v2.2.1/hub-linux-amd64-2.2.1.tar.gz | tar xz
 RUN mv hub-linux-amd64-2.2.1/man/hub.1 /usr/local/man/man1/
 RUN mv hub-linux-amd64-2.2.1/hub /usr/local/bin/
 RUN mv hub-linux-amd64-2.2.1/etc/hub.bash_completion.sh /etc/profile.d/
 
-RUN wget https://github.com/zimbatm/direnv/releases/download/v2.6.0/direnv.linux-amd64 -O /usr/local/bin/direnv
+RUN wget -q https://github.com/zimbatm/direnv/releases/download/v2.6.0/direnv.linux-amd64 -O /usr/local/bin/direnv
 RUN chmod +x /usr/local/bin/direnv
 
 ADD github-install /tmp/
@@ -60,7 +60,7 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN vim +PlugInstall +qall
-RUN sudo wget https://raw.githubusercontent.com/travis-ci/travis.rb/master/assets/travis.sh -O /etc/profile.d/travis-autocompletion.sh
+RUN sudo wget -q https://raw.githubusercontent.com/travis-ci/travis.rb/master/assets/travis.sh -O /etc/profile.d/travis-autocompletion.sh
 ADD profile.d/*.sh /etc/profile.d/
 ADD usr-local-bin/* /usr/local/bin/
 RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
