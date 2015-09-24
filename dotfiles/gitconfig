@@ -5,7 +5,7 @@
 	extract = filter-branch --prune-empty --subdirectory-filter
 	praise = blame
 	rbc = rebase --continue
-	ci = commit
+	ci = commit --verbose
 	dc = diff --cached
 	rb = rebase
 	rba = rebase --abort
