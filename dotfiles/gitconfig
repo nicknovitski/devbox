@@ -25,6 +25,9 @@
 	branch = auto
 	status = auto
 
+[commit]
+	template = ~/.gitcommit
+
 [core]
 	excludesfile = ~/.gitignore
 
