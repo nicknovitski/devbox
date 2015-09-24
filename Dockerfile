@@ -72,6 +72,6 @@ ENV USER "Nick Novitski <.*@nicknovitski.com>"
 
 WORKDIR /var/shared
 
-VOLUME ['/home/dev', '/var/shared']
+VOLUME ["/home/dev", "/var/shared"]
 
 CMD ["/usr/bin/tmux", "-2u", "new-session"]
