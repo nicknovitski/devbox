@@ -12,6 +12,7 @@
 	rb = rebase
 	rbi = rebase --interactive --autosquash
 	rba = rebase --abort
+	rbc = rebase --continue
 	st = status
 	co = checkout
 	br = branch
