@@ -1,6 +1,7 @@
 #! /bin/sh
-sudo docker run -it --rm \
+docker run -it --rm \
 	--volumes-from `my-container-id` \
 	--workdir `pwd` \
 	--env HOME=$HOME \
+	--net host \
 	"$@"
