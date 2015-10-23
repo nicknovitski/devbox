@@ -1,2 +1,2 @@
 #! /bin/sh
-docker-wrapper -e USER="$USER" jimmycuadra/rust $@
+docker-wrapper --env USER="$USER" jimmycuadra/rust $@

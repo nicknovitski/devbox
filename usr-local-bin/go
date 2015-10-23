@@ -1,2 +1,2 @@
 #!/bin/sh
-docker-wrapper -e GOPATH=$GOPATH golang:latest go "$@"
+docker-wrapper --env GOPATH=$GOPATH golang:latest go "$@"

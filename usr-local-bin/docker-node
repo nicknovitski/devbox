@@ -1,5 +1,5 @@
 #! /bin/sh
 version=$(version node | cut -b 2-)
 docker-wrapper \
-	-e "NPM_CONFIG_PREFIX=$NPM_PACKAGES" \
+	--env NPM_CONFIG_PREFIX=$NPM_PACKAGES \
 	node:${version-latest} "$@"

@@ -1,4 +1,4 @@
 #! /bin/sh
 echo "FROM ruby:latest
-RUN gem install $1" | sudo docker build -t ruby:$1 - > /dev/null
+RUN gem install $1" | docker build --tag ruby:$1 - > /dev/null
 docker-wrapper ruby:$1 "$@"
