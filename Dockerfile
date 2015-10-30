@@ -45,6 +45,13 @@ RUN chown -R dev:dev /var/shared
 USER dev
 ADD sudoers.d/* /etc/sudoers.d/
 
+RUN git clone https://aur.archlinux.org/package-query.git /tmp/package-query && \
+  cd /tmp/package-query && makepkg --syncdeps --rmdeps && \
+  sudo pacman -U --noconfirm package-query*.pkg.tar.xz
+RUN git clone https://aur.archlinux.org/yaourt.git /tmp/yaourt && \
+  cd /tmp/yaourt && makepkg --syncdeps --rmdeps && \
+  sudo pacman -U --noconfirm yaourt*.pkg.tar.xz
+
 # ruby
 RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
 RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
