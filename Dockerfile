@@ -11,10 +11,10 @@ RUN pacman -Syu --noconfirm
 RUN pacman-db-upgrade
 
 RUN pacman -S --noconfirm base-devel man openssh wget unzip yajl \
-  git vim tmux bash-completion ctags docker gtypist parallel ruby-mustache links \
+  git tmux bash-completion ctags docker gtypist parallel ruby-mustache links \
   weechat sdcv emacs python2-pip xml2 rlwrap
 
-RUN pip2 install awscli
+RUN pip2 install awscli neovim
 
 RUN curl --silent https://thoughtbot.github.io/rcm/dist/rcm-1.2.3.tar.gz | tar xz && \
   cd rcm-1.2.3 && \
@@ -64,9 +64,11 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
   tpope/rbenv-ctags \
   tpope/rbenv-sentience
 
+RUN yaourt -Sy --noconfirm neovim-git
+
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
-RUN vim +PlugInstall +qall
+RUN nvim +PlugInstall +qall --headless
 RUN sudo wget -q https://raw.githubusercontent.com/travis-ci/travis.rb/master/assets/travis.sh -O /etc/profile.d/travis-autocompletion.sh
 ADD profile.d/*.sh /etc/profile.d/
 ADD usr-local-bin/* /usr/local/bin/

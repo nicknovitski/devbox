@@ -1,4 +1,4 @@
-export STARDICT_DIR="${HOME}/.vim/plugged/vim-stardict"
+export STARDICT_DIR="${HOME}/.config/nvim/plugged/vim-stardict"
 source "${STARDICT_DIR}"/bindings/bash/stardict.sh
 
 alias def="stardict"

@@ -1,15 +1,6 @@
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
-
-if has('vim_starting')
-  if &compatible
-   set nocompatible               " Be iMproved
-  endif
-endif
-
 " download vim-plug if necessary
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl --silent -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
@@ -37,7 +28,6 @@ Plug 'rodjek/vim-puppet'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/syntastic'
 Plug 'Shougo/unite.vim' | Plug 'Quramy/vison'
-Plug 'Shougo/vimproc.vim', { 'do' : 'make' }
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
@@ -79,7 +69,7 @@ set scrolloff=4
 
 " persistent undo history
 set undofile
-set undodir=$HOME/.vim/undo
+set undodir=$HOME/.config/.nvim/undo
 silent call system('mkdir -p ' . &undodir)
 
 " disable spacebar right-motion in normal mode
