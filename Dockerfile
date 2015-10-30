@@ -54,13 +54,14 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
 
 RUN yaourt -Sy --noconfirm neovim-git rcm direnv
 
+RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN nvim +PlugInstall +qall --headless
 RUN sudo wget -q https://raw.githubusercontent.com/travis-ci/travis.rb/master/assets/travis.sh -O /etc/profile.d/travis-autocompletion.sh
 ADD profile.d/*.sh /etc/profile.d/
 ADD usr-local-bin/* /usr/local/bin/
-RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 RUN sudo chown -R dev:dev /home/dev
 
