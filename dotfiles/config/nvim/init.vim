@@ -165,6 +165,7 @@ nnoremap k gk
 " fugitive shortcuts
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gl :Glog<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gg :Ggrep
