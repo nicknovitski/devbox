@@ -12,14 +12,9 @@ RUN pacman-db-upgrade
 
 RUN pacman -S --noconfirm base-devel man openssh wget unzip yajl \
   git tmux bash-completion ctags docker gtypist parallel ruby-mustache links \
-  weechat sdcv emacs python2-pip xml2 rlwrap
+  weechat sdcv emacs python2-pip xml2 rlwrap hub
 
 RUN pip2 install awscli neovim
-
-RUN curl --silent -L https://github.com/github/hub/releases/download/v2.2.1/hub-linux-amd64-2.2.1.tar.gz | tar xz
-RUN mv hub-linux-amd64-2.2.1/man/hub.1 /usr/local/man/man1/
-RUN mv hub-linux-amd64-2.2.1/hub /usr/local/bin/
-RUN mv hub-linux-amd64-2.2.1/etc/hub.bash_completion.sh /etc/profile.d/
 
 ADD github-install /tmp/
 
