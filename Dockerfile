@@ -72,4 +72,4 @@ WORKDIR /var/shared
 
 VOLUME ["/home/dev", "/var/shared"]
 
-CMD ["/usr/bin/tmux", "-2u", "new-session"]
+CMD ["/usr/bin/tmux", "-2uCC", "new-session"]
