@@ -52,7 +52,7 @@ RUN /tmp/github-install /home/dev/.rbenv/plugins \
   tpope/rbenv-ctags \
   tpope/rbenv-sentience
 
-RUN yaourt -Sy --noconfirm neovim-git rcm direnv
+RUN yaourt -Sy --noconfirm neovim-git rcm direnv bash-git-prompt
 
 RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
