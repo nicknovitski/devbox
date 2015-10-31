@@ -66,7 +66,6 @@ ADD usr-local-bin/* /usr/local/bin/
 RUN sudo chown -R dev:dev /home/dev
 
 ENV SSH_AUTH_SOCK /home/dev/.ssh/ssh_auth_sock
-ENV USER "Nick Novitski <.*@nicknovitski.com>"
 
 WORKDIR /var/shared
 
