@@ -158,6 +158,10 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
+" s to save and q to close
+nnoremap s :w<cr>
+nnoremap q :q<cr>
+
 " move vertically by displayed row, not file line
 nnoremap j gj
 nnoremap k gk
