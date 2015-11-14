@@ -44,6 +44,8 @@ RUN yaourt -Sy --noconfirm neovim-git rcm direnv
 
 RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+RUN gem install thyme
+
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
 RUN nvim +PlugInstall +qall --headless

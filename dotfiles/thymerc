@@ -1,0 +1,2 @@
+set :timer, 3000
+set :timer_break, 1000
