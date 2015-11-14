@@ -40,18 +40,6 @@ RUN git clone https://aur.archlinux.org/yaourt.git /tmp/yaourt && \
   cd /tmp/yaourt && makepkg --syncdeps --rmdeps && \
   sudo pacman -U --noconfirm yaourt*.pkg.tar.xz
 
-# ruby
-RUN git clone https://github.com/sstephenson/rbenv.git /home/dev/.rbenv
-RUN git clone https://github.com/sstephenson/ruby-build.git /home/dev/.rbenv/plugins/ruby-build
-RUN /tmp/github-install /home/dev/.rbenv/plugins \
-  ianheggie/rbenv-binstubs \
-  nicknovitski/rbenv-gem-update \
-  sstephenson/rbenv-default-gems \
-  sstephenson/rbenv-gem-rehash \
-  tpope/rbenv-communal-gems \
-  tpope/rbenv-ctags \
-  tpope/rbenv-sentience
-
 RUN yaourt -Sy --noconfirm neovim-git rcm direnv
 
 RUN git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
