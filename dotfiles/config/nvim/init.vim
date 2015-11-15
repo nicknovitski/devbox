@@ -170,7 +170,7 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gl :Glog<cr>
-nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gc :Gcommit --verbose<cr>
 nnoremap <leader>gg :Ggrep
 nnoremap <leader>gmv :Gmove
 nnoremap <leader>grm :Gremove
