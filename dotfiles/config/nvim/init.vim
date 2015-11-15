@@ -41,7 +41,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'
@@ -58,10 +57,6 @@ set list
 
 " enable line numbers
 set number
-
-" default to utf encoding
-" (for some reason this isn't picking up $LANG like it should)
-set encoding=utf-8
 
 " scroll vertically with 4 extra lines
 set scrolloff=4
@@ -134,8 +129,7 @@ set showmatch
 " (ie, metacharacters are default, literals are escaped)
 nnoremap / /\v
 vnoremap / /\v
-" highlight search matches, disable with <leader>/
-set hlsearch
+" disable search map highlighting with <leader>/
 nnoremap <leader>/ :nohlsearch<cr>
 " ignore case of lower-case search strings
 set ignorecase
