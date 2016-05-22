@@ -48,7 +48,6 @@ RUN gem install thyme
 
 ADD dotfiles /home/dev/.dotfiles
 RUN rcup -v
-RUN nvim +PlugInstall +qall --headless
 RUN sudo wget -q https://raw.githubusercontent.com/travis-ci/travis.rb/master/assets/travis.sh -O /etc/profile.d/travis-autocompletion.sh
 ADD profile.d/*.sh /etc/profile.d/
 ADD usr-local-bin/* /usr/local/bin/
